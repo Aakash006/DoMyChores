@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 
 export class Login extends React.Component {
 
-    login= () => {
+    login = () => {
       console.log("submitted");
     }
 
@@ -14,7 +14,7 @@ export class Login extends React.Component {
             <Form onSubmit={this.login}>
                 <Form.Row controlId="formBasicEmail">
                   <Form.Label className="label">Username</Form.Label>
-                  <Form.Control type="email" placeholder="username" />
+                  <Form.Control type="string" placeholder="username" />
                 </Form.Row>
 
                 <Form.Row controlId="formBasicPassword">
@@ -22,7 +22,7 @@ export class Login extends React.Component {
                   <Form.Control type="password" placeholder="Password" />
                 </Form.Row>
                 <Form.Row>
-                    <Button variant="primary" type="submit">Login</Button>
+                    <Button className="submitBtn" variant="primary" type="submit">Login</Button>
                 </Form.Row>
             </Form>
         </div>)
