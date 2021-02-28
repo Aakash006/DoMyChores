@@ -1,24 +1,28 @@
-import './App.css';
+import "./App.css";
 import React from "react";
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import { Tab, Tabs, Container} from 'react-bootstrap';
+import Home from "./components/Home/Home";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <Container>
-        <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
-          <Tab eventKey="login" title="Login">
-            <Login/>
-          </Tab>
-          <Tab eventKey="register" title="Register">
-            <Register/>
-          </Tab>
-        </Tabs>
-      </Container>
-    </div>
-  );
+    return (
+        <div className="App">
+            <Router>
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={(props) => <Home {...props} />}
+                    />
+                    <Route
+                        exact
+                        path="/dashboard"
+                        render={(props) => <Dashboard {...props} />}
+                    />
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
