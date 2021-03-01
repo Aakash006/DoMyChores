@@ -9,16 +9,8 @@ function App() {
         <div className="App">
             <Router>
                 <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        render={(props) => <Home {...props} />}
-                    />
-                    <Route
-                        exact
-                        path="/dashboard"
-                        render={(props) => <Dashboard {...props} />}
-                    />
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/dashboard" component={Dashboard} />
                 </Switch>
             </Router>
         </div>

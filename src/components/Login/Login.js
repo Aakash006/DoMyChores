@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import Home from "../Home/Home";
 import { withRouter } from "react-router-dom";
 
-export default class Login extends React.Component {
+export class Login extends React.Component {
     constructor(props) {
         super(props);
 
@@ -64,3 +64,5 @@ export default class Login extends React.Component {
         );
     }
 }
+
+export default withRouter(Login);
