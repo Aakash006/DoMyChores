@@ -9,16 +9,20 @@ const ServiceSchema = new Schema(
         service_type: {
             type: String,
             trim: true,
-            required: true,
+            required: true
         },
         special_instruction: {
             type: String,
             trim: true,
-            required: true,
+            required: true
         },
-        date_requested: {
+        date_requested_by: {
             type: Date,
-            required: true,
+            required: true
+        },
+        is_done: {
+            type: Boolean,
+            default: false
         },
         service_owner: {
             type: Schema.Types.ObjectId,
