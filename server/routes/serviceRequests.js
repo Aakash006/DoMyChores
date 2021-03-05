@@ -85,6 +85,7 @@ router.post('/update', (req, res, next) => {
     }
 });
 
+/* Delete using the service id */
 router.post('/delete', (req, res, next) => {
     if (req.header('authorization')) {
         token = req.header('authorization');
