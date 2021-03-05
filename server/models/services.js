@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.set('useFindAndModify', false);
-
 //create schema for a User
 const ServiceSchema = new Schema(
     {

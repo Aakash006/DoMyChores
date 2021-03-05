@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 const Schema = mongoose.Schema;
 
-mongoose.set('useFindAndModify', false);
-
 //create schema for a User
 const UserSchema = new Schema(
     {
