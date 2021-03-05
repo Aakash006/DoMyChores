@@ -1,7 +1,7 @@
-import React from "react";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
-import { Tab, Tabs, Container } from "react-bootstrap";
+import React from 'react';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+import { Tab, Tabs, Container } from 'react-bootstrap';
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -10,16 +10,16 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <div className="App">
+            <div className='App'>
                 <Container>
                     <Tabs
-                        defaultActiveKey="login"
-                        id="uncontrolled-tab-example"
+                        defaultActiveKey='login'
+                        id='uncontrolled-tab-example'
                     >
-                        <Tab eventKey="login" title="Login">
+                        <Tab eventKey='login' title='Login'>
                             <Login />
                         </Tab>
-                        <Tab eventKey="register" title="Register">
+                        <Tab eventKey='register' title='Register'>
                             <Register />
                         </Tab>
                     </Tabs>

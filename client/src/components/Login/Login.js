@@ -1,16 +1,16 @@
-import "./Login.css";
-import React from "react";
-import { Form, Button } from "react-bootstrap";
-import Home from "../Home/Home";
-import { withRouter } from "react-router-dom";
+import './Login.css';
+import React from 'react';
+import { Form, Button } from 'react-bootstrap';
+import Home from '../Home/Home';
+import { withRouter } from 'react-router-dom';
 
 export class Login extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: "",
-            password: "",
+            username: '',
+            password: '',
         };
     }
 
@@ -22,39 +22,39 @@ export class Login extends React.Component {
 
     login = (event) => {
         event.preventDefault();
-        this.props.history.push("/dashboard");
+        this.props.history.push('/dashboard');
     };
 
     render() {
         return (
             <div>
                 <Form onSubmit={this.login}>
-                    <Form.Row controlId="formBasicEmail">
-                        <Form.Label className="label">Username</Form.Label>
+                    <Form.Row controlId='formBasicEmail'>
+                        <Form.Label className='label'>Username</Form.Label>
                         <Form.Control
-                            type="string"
-                            placeholder="username"
-                            name="username"
+                            type='string'
+                            placeholder='username'
+                            name='username'
                             value={this.state.username}
                             onChange={this.handleChange}
                         />
                     </Form.Row>
 
-                    <Form.Row controlId="formBasicPassword">
-                        <Form.Label className="label">Password</Form.Label>
+                    <Form.Row controlId='formBasicPassword'>
+                        <Form.Label className='label'>Password</Form.Label>
                         <Form.Control
-                            type="password"
-                            placeholder="Password"
-                            name="password"
+                            type='password'
+                            placeholder='Password'
+                            name='password'
                             value={this.state.password}
                             onChange={this.handleChange}
                         />
                     </Form.Row>
                     <Form.Row>
                         <Button
-                            className="submitBtn"
-                            variant="primary"
-                            type="submit"
+                            className='submitBtn'
+                            variant='primary'
+                            type='submit'
                         >
                             Login
                         </Button>
