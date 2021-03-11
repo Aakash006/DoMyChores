@@ -1,16 +1,30 @@
 import './App.css';
 import React from 'react';
-import Home from './components/Home/Home';
 import Dashboard from './components/Dashboard/Dashboard';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Login } from './components/Login/Login';
+import { Register } from './components/Register/Register';
+import Logout from './components/Logout/Logout';
+import NavBar from './components/Navbar/Navbar';
 
 function App() {
     return (
         <div className='App'>
             <Router>
                 <Switch>
-                    <Route exact path='/' component={Home} />
-                    <Route exact path='/dashboard' component={Dashboard} />
+                    <Redirect exact from="/" to="/dashboard" />
+                    <Route path='/dashboard'>
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Dashboard/>
+                        }
+                    </Route>
+                    <Route path="/logout">
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Logout/>
+                        }
+                    </Route>
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
                 </Switch>
             </Router>
         </div>

@@ -4,7 +4,7 @@ import './Navbar.css';
 
 function NavBar(props) {
     return (
-        <div>
+        <div className="header">
             <Navbar
                 className='sticky-top'
                 collapseOnSelect
@@ -12,7 +12,7 @@ function NavBar(props) {
                 bg='light'
                 sticky='top'
             >
-                <Navbar.Brand className='navTitle' href='/dashboard'>
+                <Navbar.Brand className='navTitle' href='/' exact>
                     DoMyChores
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls='responsive-navbar-nav' />
@@ -22,6 +22,9 @@ function NavBar(props) {
                     </Nav.Link>
                     <Nav.Link className='navLink' href='/favourites' exact>
                         Favourites
+                    </Nav.Link>
+                    <Nav.Link className='navLink' href='/logout' exact>
+                        Logout
                     </Nav.Link>
                 </Nav>
             </Navbar>
