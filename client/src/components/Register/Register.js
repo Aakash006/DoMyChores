@@ -9,7 +9,7 @@ export class Register extends React.Component {
 
         this.state = {
             email: "",
-            usertype: "",
+            usertype: "N/A",
             username: "",
             password: "",
         };
@@ -23,8 +23,18 @@ export class Register extends React.Component {
 
     register = (event) => {
         event.preventDefault();
-        console.log("submitted");
-        this.props.history.push("/dashboard");
+        fetch(`/api/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'username': this.state.username,
+                'password': this.state.password,
+                'email': this.state.email,
+                'user_type': this.state.usertype
+            })
+        })
+            .then(res => res.json())
+            .then(dat => this.props.history.push("/login"));
     };
 
     render() {
@@ -33,7 +43,7 @@ export class Register extends React.Component {
                 <Container>
                     <h2>Register</h2>
                     <Form onSubmit={this.register}>
-                        <Form.Row controlId="formBasicEmail">
+                        <Form.Row controlid="formBasicEmail">
                             <Form.Label className="label">Email</Form.Label>
                             <Form.Control
                                 type="email"
@@ -44,7 +54,7 @@ export class Register extends React.Component {
                             />
                         </Form.Row>
 
-                        <Form.Row controlId="formBasicEmail">
+                        <Form.Row controlid="formBasicEmail">
                             <Form.Label className="label">Username</Form.Label>
                             <Form.Control
                                 type="string"
@@ -55,7 +65,7 @@ export class Register extends React.Component {
                             />
                         </Form.Row>
 
-                        <Form.Row controlId="formBasicEmail">
+                        <Form.Row controlid="formBasicEmail">
                             <Form.Label className="label">User Type</Form.Label>
                             <Form.Control
                                 as="select"
@@ -64,12 +74,13 @@ export class Register extends React.Component {
                                 value={this.state.usertype}
                                 onChange={this.handleChange}
                             >
+                                <option>N/A</option>
                                 <option>Customer</option>
                                 <option>Service Provider</option>
                             </Form.Control>
                         </Form.Row>
 
-                        <Form.Row controlId="formBasicPassword">
+                        <Form.Row controlid="formBasicPassword">
                             <Form.Label className="label">Password</Form.Label>
                             <Form.Control
                                 type="password"

@@ -21,8 +21,19 @@ export class Login extends React.Component {
 
     login = (event) => {
         event.preventDefault();
-        localStorage.setItem("id", 1);
-        this.props.history.push("/dashboard");
+        fetch(`/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'username': this.state.username,
+                'password': this.state.password
+            })
+        })
+            .then(res => res.json())
+            .then(dat => {
+                localStorage.setItem("id", dat.id);
+                this.props.history.push("/dashboard");
+            });
     };
 
     render() {
@@ -31,7 +42,7 @@ export class Login extends React.Component {
                 <Container>
                     <h2>Login</h2>
                     <Form onSubmit={this.login}>
-                        <Form.Row controlId="formBasicEmail">
+                        <Form.Row controlid="formBasicEmail">
                             <Form.Label className="label">Username</Form.Label>
                             <Form.Control
                                 type="string"
@@ -42,7 +53,7 @@ export class Login extends React.Component {
                             />
                         </Form.Row>
 
-                        <Form.Row controlId="formBasicPassword">
+                        <Form.Row controlid="formBasicPassword">
                             <Form.Label className="label">Password</Form.Label>
                             <Form.Control
                                 type="password"
