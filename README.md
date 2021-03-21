@@ -14,5 +14,6 @@ serverless deploy
 
 # Frontend
 cd client
+echo API_ENDPOINT_URL=https://xxxxxxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev > .env
 npm install && npm start
 ```
