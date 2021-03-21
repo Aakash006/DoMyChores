@@ -15,8 +15,8 @@ export default class Dashboard extends Component {
             <div>
                 <NavBar />
                 <h1 className='title'>Dashboard</h1>
-                {this.state.services.map((service) => (
-                    <h2>{service}</h2>
+                {this.state.services.map((service, id) => (
+                    <h2 key={id}>{service}</h2>
                 ))}
                 ;
             </div>

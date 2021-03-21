@@ -23,13 +23,15 @@ functions:
     description: Submit user's credentials in DynamoDB.
     events:
       - http: 
-          path: register
+          path: /api/register
           method: post
+          cors: true
   login:
     handler: api/auth.login
     memorySize: 128
     description: Verify user's credentials from DynamoDB.
     events:
       - http:
-          path: login
+          path: /api/login
           method: post
+          cors: true
