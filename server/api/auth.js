@@ -5,6 +5,13 @@ const db = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
 module.exports.login = async(event, context, callback) => {
     const requestBody = JSON.parse(event.body)
+    const response = {
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        }
+    }
     const params = {
         TableName: 'users',
         Key: {
@@ -18,24 +25,18 @@ module.exports.login = async(event, context, callback) => {
     await db.get(params).promise()
     .then(res => {
         if (res.Item.password === requestBody.password) {
-            const response = {
-                statusCode: 200,
-                body: JSON.stringify({ id: res.Item.id })
-            }
+            response.statusCode = 200
+            response.body = JSON.stringify({ id: res.Item.id })
             callback(null, response)
         } else {
-            const response = {
-                statusCode: 404,
-                body: JSON.stringify({ msg: 'Account Not Found.'})
-            }
+            response.statusCode = 404
+            response.body = JSON.stringify({ msg: 'Account Not Found.'})
             callback(null, response)
         }
     })
     .catch(err => {
-        const response = {
-            statusCode: 404,
-            body: JSON.stringify(err),
-        }
+        response.statusCode = 404
+        response.body = JSON.stringify(err)
         callback(null, response)
     })
 }

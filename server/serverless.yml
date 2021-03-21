@@ -25,6 +25,7 @@ functions:
       - http: 
           path: register
           method: post
+          cors: true
   login:
     handler: api/auth.login
     memorySize: 128
@@ -33,3 +34,4 @@ functions:
       - http:
           path: login
           method: post
+          cors: true
