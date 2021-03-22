@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Login } from './components/Login/Login';
 import { Register } from './components/Register/Register';
-import Logout from './components/Logout/Logout';
+import { Profile } from './components/Profile/Profile';
 
 function App() {
     return (
@@ -17,13 +17,9 @@ function App() {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Dashboard/>
                         }
                     </Route>
-                    <Route path="/logout">
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Logout/>
-                        }
-                    </Route>
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
+                    <Route path='/profile' component={Profile} />
                 </Switch>
             </Router>
         </div>

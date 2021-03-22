@@ -31,8 +31,15 @@ export class Login extends React.Component {
         })
             .then(res => res.json())
             .then(dat => {
-                localStorage.setItem("id", dat.id);
-                this.props.history.push("/dashboard");
+                if (dat.id) {
+                    localStorage.setItem('id', dat.id);
+                    localStorage.setItem('email', dat.email);
+                    localStorage.setItem('userType', dat.userType);
+                    localStorage.setItem('username', dat.username)
+                    this.props.history.push("/dashboard");
+                } else {
+                    console.log('Error')
+                }
             });
     };
 
