@@ -14,58 +14,64 @@ module.exports.login = async(event, context, callback) => {
     }
     const params = {
         TableName: 'users',
-        Key: {
-            'username': requestBody.username
+        FilterExpression: '#username = :username AND #password = :password',
+        ExpressionAttributeNames: {
+            '#username': 'username',
+            '#password': 'password'
         },
-        AttributesToGet: [
-            'password',
-            'id'
-        ]
+        ExpressionAttributeValues: {
+            ':username': requestBody.username,
+            ':password': requestBody.password
+        },
+        ProjectionExpression: 'username, email, userType, id'
     }
-    await db.get(params).promise()
+    await db.scan(params).promise()
     .then(res => {
-        if (res.Item.password === requestBody.password) {
+        if (res.Count == 1) {
             response.statusCode = 200
-            response.body = JSON.stringify({ id: res.Item.id })
+            response.body = JSON.stringify(res.Items[0])
             callback(null, response)
         } else {
             response.statusCode = 404
-            response.body = JSON.stringify({ msg: 'Account Not Found.'})
+            response.body = JSON.stringify({ msg: 'No accounts found.' })
             callback(null, response)
         }
     })
     .catch(err => {
-        response.statusCode = 404
-        response.body = JSON.stringify(err)
+        response.statusCode = 500
+        response.body = JSON.stringify({ msg: 'Internal Server Error'})
         callback(null, response)
     })
 }
 
 module.exports.register = async(event, context, callback) => {
     const requestBody = JSON.parse(event.body)
+    const response = {
+        headers: {
+            "Access-Control-Allow-Headers" : "Content-Type",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        }
+    }
     const params = {
         TableName: 'users',
         Item: {
             id: uuid.v1(),
             username: requestBody.username,
             email: requestBody.email,
-            user_type: requestBody.user_type,
+            userType: requestBody.userType,
             password: requestBody.password
         }
     }
     await db.put(params).promise()
     .then(res => {
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify(res),
-        }
+        response.statusCode = 200
+        response.body = JSON.stringify({ msg: 'Good' })
         callback(null, response)
     })
     .catch(err => {
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify(err),
-        }
+        response.statusCode = 500
+        response.body = JSON.stringify({ msg: 'Internal Server Error'})
         callback(null, response)
     })
 }
