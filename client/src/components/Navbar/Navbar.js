@@ -1,35 +1,65 @@
+import "./Navbar.css";
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
-import './Navbar.css';
+import { Nav, Navbar, NavDropdown, Modal, Button } from 'react-bootstrap';
+import { withRouter } from "react-router-dom";
 
-function NavBar(props) {
-    return (
-        <div className="header">
-            <Navbar
-                className='sticky-top'
-                collapseOnSelect
-                expand='lg'
-                bg='light'
-                sticky='top'
-            >
-                <Navbar.Brand className='navTitle' href='/' exact="true">
-                    DoMyChores
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-                <Nav className='m-auto'>
-                    <Nav.Link className='navLink' href='/history' exact="true">
-                        History
-                    </Nav.Link>
-                    <Nav.Link className='navLink' href='/favourites' exact="true">
-                        Favourites
-                    </Nav.Link>
-                    <Nav.Link className='navLink' href='/logout' exact="true">
-                        Logout
-                    </Nav.Link>
-                </Nav>
-            </Navbar>
-        </div>
-    );
+export class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false,
+
+        }
+    }
+    handleClick = () => {
+        this.setState({ show: !this.state.show })
+    }
+
+    handleClose = () => {
+        this.setState({ show: !this.state.show });
+        localStorage.clear();
+        this.props.history.push("/login");
+    }
+
+    render() {
+        return (
+            <>
+
+                <Navbar expand='lg' bg='dark' variant='dark'>
+                    <Navbar.Brand className='navTitle' href='/' exact="true">DoMyChores</Navbar.Brand>
+                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className='mr-auto'>
+                            <Nav.Link className='navLink' href='/history' exact="true">History</Nav.Link>
+                            <Nav.Link className='navLink' href='/favourites' exact="true">Favourites</Nav.Link>
+                        </Nav>
+                        <Nav className='nav-item ml-auto'>
+                            <NavDropdown title={localStorage.getItem('username')} id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item onClick={this.handleClick}>Logout</NavDropdown.Item>
+                            </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Modal
+                    show={this.state.show}
+                    onHide={this.handleClick}
+                    backdrop="static"
+                    keyboard={false}
+                    animation={false}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Logout</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure you want to logout?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleClose}>Yes</Button>
+                        <Button variant="secondary" onClick={this.handleClick}>No</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+
+        );
+    }
 }
-
-export default NavBar;
+export default withRouter(NavBar);

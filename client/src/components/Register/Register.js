@@ -9,7 +9,7 @@ export class Register extends React.Component {
 
         this.state = {
             email: "",
-            usertype: "N/A",
+            userType: "N/A",
             username: "",
             password: "",
         };
@@ -30,7 +30,7 @@ export class Register extends React.Component {
                 'username': this.state.username,
                 'password': this.state.password,
                 'email': this.state.email,
-                'user_type': this.state.usertype
+                'userType': this.state.userType
             })
         })
             .then(res => res.json())
@@ -70,8 +70,8 @@ export class Register extends React.Component {
                             <Form.Control
                                 as="select"
                                 custom
-                                name="usertype"
-                                value={this.state.usertype}
+                                name="userType"
+                                value={this.state.userType}
                                 onChange={this.handleChange}
                             >
                                 <option>N/A</option>

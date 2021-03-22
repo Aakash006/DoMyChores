@@ -1,11 +1,4 @@
-.navTitle {
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.navLink {
-    font-size: 23px;
-    width: 100%;
-    align-items: center;
-    margin-left: 10px;
+.dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
 }
