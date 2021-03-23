@@ -19,6 +19,16 @@ export class Dashboard extends Component {
         };
     }
 
+    fetchServices() {
+        fetch(`/api/services`, {method: 'GET'})
+            .then(res => res.json())
+            .then(data => {
+                this.setState({services: data});
+            }).catch((error) => {
+                console.log("error: " + error);
+            });
+    }
+
     handleClick = () => {
         // Make Task
         this.props.history.push("/request/shovel");

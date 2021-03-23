@@ -20,6 +20,40 @@ export class Requests extends Component {
             ]
         }
     }
+
+    fetchRequests() {
+        fetch(`/api/requests`, {method: 'GET'})
+            .then(res => res.json())
+            .then(data => {
+                this.setState({requests: data})
+            }).catch((error) => {
+                console.log("error: " + error);
+            });
+    }
+
+    acceptRequest = (event) => {
+        var today = new Date(),
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        fetch(`/api/acceptRequest`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'acceptedDate': date,
+                'accepterId': localStorage.getItem('id')
+            })
+        })
+            .then(res => res.json())
+            .then((data) => {
+                if (data.success) {
+                    console.log('Success!');
+                } else {
+                    console.log('Error: ' + data.message);
+                }
+            }).catch((error) =>{
+                console.log('error: ' + error);
+            });
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +67,7 @@ export class Requests extends Component {
                                     <tr>
                                         <td>{request.address}</td>
                                         <td>{request.requestDate}</td>
-                                        <td><Button>Accept</Button></td>
+                                        <td><Button onClick={this.acceptRequest}>Accept</Button></td>
                                     </tr>
                                 )}
                             </tbody>

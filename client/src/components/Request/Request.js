@@ -13,8 +13,25 @@ export class Request extends Component {
 
     submitRequest = (event) => {
         event.preventDefault();
-        console.log("address: " + this.state.address);
-        console.log("date: " + this.state.requestDate);
+        fetch(`/api/createRequest`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                'address': this.state.address,
+                'requestDate': this.state.requestDate,
+                'requestorId': localStorage.getItem('id')
+            })
+        })
+            .then(res => res.json())
+            .then((data) => {
+                if (data.success) {
+                    console.log('Success!');
+                } else {
+                    console.log('Error: ' + data.message);
+                }
+            }).catch((error) =>{
+                console.log('error: ' + error);
+            });
     }
 
     handleChange = (event) => {
