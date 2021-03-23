@@ -1,3 +1,12 @@
 .title {
     margin-top: 50px;
 }
+
+.cards {
+    margin-top: 30px;
+}
+
+.createBtn {
+    margin-left: auto;
+    margin-right: auto;
+}

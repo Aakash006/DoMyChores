@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { Login } from './components/Login/Login';
 import { Register } from './components/Register/Register';
 import { Profile } from './components/Profile/Profile';
+import { History } from './components/History/History';
+import { Request } from './components/Request/Request';
+
 
 function App() {
     return (
@@ -15,6 +18,16 @@ function App() {
                     <Route path='/dashboard'>
                         {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Dashboard/>
+                        }
+                    </Route>
+                    <Route path='/history'>
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <History/>
+                        }
+                    </Route>
+                    <Route path='/request/:task'>
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Request/>
                         }
                     </Route>
                     <Route path='/login' component={Login} />

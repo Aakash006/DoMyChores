@@ -40,7 +40,7 @@ export class Register extends React.Component {
     render() {
         return (
             <div className="app">
-                <Container>
+                <Container className="register">
                     <h2>Register</h2>
                     <Form onSubmit={this.register}>
                         <Form.Row controlid="formBasicEmail">

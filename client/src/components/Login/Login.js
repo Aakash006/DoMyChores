@@ -46,7 +46,7 @@ export class Login extends React.Component {
     render() {
         return (
             <div className="app">
-                <Container>
+                <Container className="login">
                     <h2>Login</h2>
                     <Form onSubmit={this.login}>
                         <Form.Row controlid="formBasicEmail">
