@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Dashboard.css';
 import { withRouter } from "react-router-dom";
 import NavBar from '../Navbar/Navbar';
-import { Button, Row, Col, Card, Container, Badge } from "react-bootstrap";
+import { Button, Row, Col, Card, Container } from "react-bootstrap";
 
 export class Dashboard extends Component {
     constructor(props) {
@@ -34,7 +34,7 @@ export class Dashboard extends Component {
                             <Col>
                                 <Card className="serviceCard" style={{ width: '18rem' }} bg="dark" text="white">
                                     <Card.Body>
-                                        <Card.Title className="taskName">{service.task} <Badge variant="success">{service.requests}</Badge></Card.Title>
+                                        <Card.Title className="taskName">{service.task} <Button className="numRequests" href="/requests/shovel">{service.requests}</Button></Card.Title>
                                         <Row>
                                         {
                                             this.state.userType === 'Customer' && 

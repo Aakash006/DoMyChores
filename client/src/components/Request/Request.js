@@ -1,7 +1,6 @@
 import { React, Component } from 'react';
-import { Form, Button, Row, Col, Container } from 'react-bootstrap';
+import { Form, Button, Col, Container } from 'react-bootstrap';
 import { NavBar } from '../Navbar/Navbar';
-import { DatePicker } from 'react-datepicker';
 
 export class Request extends Component {
     constructor(props) {
@@ -33,7 +32,7 @@ export class Request extends Component {
                     <Form onSubmit={this.submitRequest}>
                         <Form.Row>
                             <Form.Label>Address</Form.Label>
-                            <Form.Control placeholder="address" name="address" value={this.state.address} onChange={this.handleChange} placeholder="Address" />
+                            <Form.Control placeholder="address" name="address" value={this.state.address} onChange={this.handleChange} />
                         </Form.Row>
                         <Form.Row>
                             <Form.Label>Date for task</Form.Label>
