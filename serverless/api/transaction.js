@@ -4,6 +4,10 @@ const AWS = require('aws-sdk')
 const db = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
 module.exports.getAllRequest = async(event, context, callback) => {
+    const REQUESTED = 'REQUESTED';
+    const ACCEPTED = 'ACCEPTED';
+    const DONE = 'DONE';
+
     const response = {
         headers: {
             "Access-Control-Allow-Headers" : "Content-Type",
@@ -90,7 +94,7 @@ module.exports.createRequest = async (event, context, callback) => {
             requesterUserName: requestBody.requesterUserName,
             taskerUserName: '',
             submissionDate: new Date().toISOString(),
-            status: requestBody.status,
+            status: REQUESTED,
             acceptedTimeStamp: '',
             statusChangeTimeStamp: new Date().toISOString(),
             completedTimeStamp: '',

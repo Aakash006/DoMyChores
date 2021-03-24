@@ -31,7 +31,7 @@ function App() {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Request/>
                         }
                     </Route>
-                    <Route path='/requests/:task'>
+                    <Route path='/requests'>
                         {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Requests/>
                         }

@@ -3,6 +3,8 @@ import './Dashboard.css';
 import { withRouter } from "react-router-dom";
 import NavBar from '../Navbar/Navbar';
 import { Button, Row, Col, Card, Container } from "react-bootstrap";
+import { Requests } from '../Requests/Requests';
+import services from '../../assets/service.json';
 
 export class Dashboard extends Component {
     constructor(props) {
@@ -10,12 +12,7 @@ export class Dashboard extends Component {
 
         this.state = {
             userType: localStorage.getItem('userType'),
-            //dummy tasks
-            services: [ 
-                {task: 'Snow Removal', requests:'1'}, 
-                {task: 'Grass Removal', requests: '2'}, 
-                {task: 'Garbage Disposal', requests: '0'}
-            ],
+            test: 1,
         };
     }
 
@@ -29,26 +26,34 @@ export class Dashboard extends Component {
             });
     }
 
-    handleClick = () => {
+    handleClick = (task) => {
         // Make Task
-        this.props.history.push("/request/shovel");
+        this.props.history.push(`/request/${task}`);
     }
 
     render() {
         return (
             <div>
                 <NavBar />
+                {this.state.test === 1 ? 
                 <Container className="cards">
-                {this.state.services.length > 0 ? (<Row>
-                            {this.state.services.map((service) => 
-                            <Col>
-                                <Card className="serviceCard" style={{ width: '18rem' }} bg="dark" text="white">
+                {services.length > 0 ? (<Row>
+                            {services.map((service) => 
+                            <Col md={4}>
+                                <Card className="serviceCard" style={{flex: 1}} bg="dark" text="white">
                                     <Card.Body>
-                                        <Card.Title className="taskName">{service.task} <Button className="numRequests" href="/requests/shovel">{service.requests}</Button></Card.Title>
+                                        <Card.Title className="taskName">{service.task}</Card.Title>
+                                        <Card.Text>{service.subTasks.length > 0 ?
+                                        (<p>{service.subTasks.forEach((task) => {
+                                            return (<p>{task},</p>);
+                                        })}</p>)
+                                        : ('')
+                                        }
+                                        </Card.Text>
                                         <Row>
                                         {
                                             this.state.userType === 'Customer' && 
-                                            <Button className="createBtn" onClick={this.handleClick}>Create a Task</Button>
+                                            <Button className="createBtn" onClick={this.handleClick(service.task)}>Create a Task</Button>
                                         }
                                         </Row>
                                     </Card.Body>
@@ -57,6 +62,7 @@ export class Dashboard extends Component {
                         </Row>): 
                     ''}
                 </Container>
+                : (<Requests/>) }
             </div>
         );
     }

@@ -1,0 +1,7 @@
+[
+    {"task": "Snow Removal", "subTasks" : []}, 
+    {"task": "Grass Removal", "subTasks": []}, 
+    {"task": "Garbage Disposal", "subTasks": []},
+    {"task": "Gardening", "subTasks": []},
+    {"task": "Garden Work", "subTasks": ["Grass Removal", "Gardening"]}
+]

@@ -22,7 +22,7 @@ export class Requests extends Component {
     }
 
     fetchRequests() {
-        fetch(`/api/requests`, {method: 'GET'})
+        fetch(`/api/service-requests/`, {method: 'GET'})
             .then(res => res.json())
             .then(data => {
                 this.setState({requests: data})
@@ -34,7 +34,7 @@ export class Requests extends Component {
     acceptRequest = (event) => {
         var today = new Date(),
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        fetch(`/api/acceptRequest`, {
+        fetch(`/api/service-requests/tacker-accept`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -57,8 +57,6 @@ export class Requests extends Component {
     render() {
         return (
             <div>
-                <NavBar />
-                <h2>Requests for {/* {this.props.match.params.task} */}</h2>
                 <Container>
                     <Table className="requestsTable">
                         {this.state.requests.length > 0 ?

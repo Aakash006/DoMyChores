@@ -4,8 +4,21 @@ import { NavBar } from '../Navbar/Navbar';
 export class History extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            requests: []
+        };
     }
+
+    fetchRecents() {
+        fetch(`/api/service-requests/get-user`, {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(data => {
+                this.setState({requests: data});
+            });
+    }
+
     render() {
         return (
             <div>

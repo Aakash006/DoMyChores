@@ -7,19 +7,24 @@ export class Request extends Component {
         super(props);
         this.state = {
             address: "",
-            requestDate: ""
+            requestDate: "",
+            extraNotes: ""
         }
+        // console.log(this.props.match.params.task);
     }
 
     submitRequest = (event) => {
+        const tasks = ["Gardening", "Grass Removal"]; // dummy tasks
         event.preventDefault();
-        fetch(`/api/createRequest`, {
+        fetch(`/api/service-request/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 'address': this.state.address,
                 'requestDate': this.state.requestDate,
-                'requestorId': localStorage.getItem('id')
+                'requestorId': localStorage.getItem('id'),
+                'extraNotes': this.state.extraNotes,
+                'tasks': tasks
             })
         })
             .then(res => res.json())
@@ -53,7 +58,11 @@ export class Request extends Component {
                         </Form.Row>
                         <Form.Row>
                             <Form.Label>Date for task</Form.Label>
-                            <Form.Control type="date" placeholder="requestDate" name="requestDate" value={this.state.requestDate} onChange={this.handleChange} />
+                            <Form.Control type="date" placeholder="Date" name="requestDate" value={this.state.requestDate} onChange={this.handleChange} />
+                        </Form.Row>
+                        <Form.Row>
+                            <Form.Label>Notes</Form.Label>
+                            <Form.Control name="extraNotes" value={this.state.extraNotes} onChange={this.handleChange} />
                         </Form.Row>
                         <Form.Row>
                             <Col>
