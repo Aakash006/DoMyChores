@@ -14,6 +14,8 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
       Resource: "*"
 
 functions:
@@ -33,5 +35,65 @@ functions:
     events:
       - http:
           path: /api/login
+          method: post
+          cors: true
+
+  transaction-getAllRequests:
+    handler: api/transaction.getAllRequest
+    memorySize: 128
+    description: Get all the transactions.
+    events:
+      - http:
+          path: /api/service-requests/
+          method: get
+          cors: true
+
+  transaction-getRequestPerUser:
+    handler: api/transaction.getRequestPerUser
+    memorySize: 128
+    description: Get all the transaction associated with the requester or tasker.
+    events:
+      - http:
+          path: /api/service-requests/get-user
+          method: get
+          cors: true
+
+  transaction-create:
+    handler: api/transaction.createRequest
+    memorySize: 128
+    description: Create a new transaction and associate with a requester.
+    events:
+      - http:
+          path: /api/service-requests/create
+          method: post
+          cors: true
+
+  transaction-delete:
+    handler: api/transaction.deleteRequest
+    memorySize: 128
+    description: Remove a transaction.
+    events:
+      - http:
+          path: /api/service-requests/delete/{id}
+          method: delete
+          cors: true
+
+  transaction-getStatus:
+    handler: api/transaction.getStatus
+    memorySize: 128
+    description: Get status of a transaction.
+    events:
+      - http:
+          path: /api/service-requests/get-status/{id}
+          method: get
+          cors: true
+
+  transaction-taskerAccept:
+    handler: api/transaction.taskerAccept
+    memorySize: 128
+    description: Update transaction when tasker accepts a service request.
+    events:
+      - http:
+          path: /api/service-requests/tasker-accept
           method: post
           cors: true
