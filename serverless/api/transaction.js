@@ -3,10 +3,6 @@ const uuid = require('uuid')
 const AWS = require('aws-sdk')
 const db = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
-const REQUESTED = 'REQUESTED';
-const ACCEPTED = 'ACCEPTED';
-const DONE = 'DONE';
-
 module.exports.getAllRequest = async(event, context, callback) => {
 
     const response = {
@@ -239,7 +235,7 @@ module.exports.taskerSetCompleteTask = async(event, context, callback) => {
         ExpressionAttributeNames: {'#status' : 'status'},
         ExpressionAttributeValues: { 
             ':taskerUserName': requestBody.taskerUserName,
-            ':status': requestBody.status,
+            ':status': 'DONE',
             ':acceptedTimeStamp': new Date().toISOString(),
             ':statusChangeTimeStamp': new Date().toISOString()
         }
