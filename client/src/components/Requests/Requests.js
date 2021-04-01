@@ -60,6 +60,7 @@ export class Requests extends Component {
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
+                                        {request.requestedDate ? <td><b>Requested For : </b>{requestedFor}</td> : ('')}
                                         {request.taskerUserName ? <td><b>Accepted by: </b>{request.taskerUserName}</td> : ('')}
                                         <td><Badge variant="success">{request.status}</Badge></td>
                                         {request.status === 'REQUESTED' ? 

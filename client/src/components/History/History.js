@@ -58,7 +58,7 @@ export class History extends Component {
                                 {this.state.requests.map((request) =>
                                     <tr>
                                         {localStorage.getItem('userType') === 'Service Provider' ? <td><b>Requested by: </b>{request.requesterUserName}</td> : ('')}
-                                        {request.requestedDate ? <td><b>Requested For : </b>{request.requestedDate}</td> : ('')}
+                                        {request.requestedDate ? <td><b>Requested For : </b>{request.requestedFor}</td> : ('')}
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
