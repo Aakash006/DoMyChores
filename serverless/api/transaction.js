@@ -3,10 +3,11 @@ const uuid = require('uuid')
 const AWS = require('aws-sdk')
 const db = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'})
 
+const REQUESTED = 'REQUESTED';
+const ACCEPTED = 'ACCEPTED';
+const DONE = 'DONE';
+
 module.exports.getAllRequest = async(event, context, callback) => {
-    const REQUESTED = 'REQUESTED';
-    const ACCEPTED = 'ACCEPTED';
-    const DONE = 'DONE';
 
     const response = {
         headers: {
@@ -117,7 +118,8 @@ module.exports.createRequest = async (event, context, callback) => {
         .catch(err => {
             response.statusCode = 500;
             response.body = JSON.stringify({
-                msg: 'Internal Server Error'
+                msg: 'Internal Server Error',
+                err: err
             });
             callback(null, response);
         });
