@@ -95,7 +95,7 @@ module.exports.createRequest = async (event, context, callback) => {
             requesterUserName: requestBody.requesterUserName,
             taskerUserName: '',
             submissionDate: new Date().toISOString(),
-            status: REQUESTED,
+            status: 'REQUESTED',
             acceptedTimeStamp: '',
             statusChangeTimeStamp: new Date().toISOString(),
             completedTimeStamp: '',
@@ -203,7 +203,7 @@ module.exports.taskerAccept = async(event, context, callback) => {
         ExpressionAttributeNames: {'#status' : 'status'},
         ExpressionAttributeValues: { 
             ':taskerUserName': requestBody.taskerUserName,
-            ':status': requestBody.status,
+            ':status': 'ACCEPETED',
             ':acceptedTimeStamp': new Date().toISOString(),
             ':statusChangeTimeStamp': new Date().toISOString()
         }
