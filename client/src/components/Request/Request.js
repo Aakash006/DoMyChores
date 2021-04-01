@@ -16,15 +16,16 @@ export class Request extends Component {
     submitRequest = (event) => {
         const tasks = ["Gardening", "Grass Removal"]; // dummy tasks
         event.preventDefault();
-        fetch(`/api/service-request/create`, {
+        fetch(`/api/service-requests/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                'address': this.state.address,
+                // 'address': this.state.address,
                 'requestDate': this.state.requestDate,
-                'requestorId': localStorage.getItem('id'),
+                'requesterUserName': localStorage.getItem('username'),
                 'extraNotes': this.state.extraNotes,
-                'tasks': tasks
+                'requestedTasks': tasks,
+                'price' : '70.00'
             })
         })
             .then(res => res.json())

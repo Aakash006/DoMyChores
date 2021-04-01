@@ -19,12 +19,15 @@ export class Requests extends Component {
                 }
             ]
         }
+
+        this.fetchRequests();
     }
 
     fetchRequests() {
         fetch(`/api/service-requests/`, {method: 'GET'})
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 this.setState({requests: data})
             }).catch((error) => {
                 console.log("error: " + error);
