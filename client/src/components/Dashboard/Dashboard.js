@@ -12,7 +12,7 @@ export class Dashboard extends Component {
 
         this.state = {
             userType: localStorage.getItem('userType'),
-            test: 1,
+            test: 2,
         };
     }
 

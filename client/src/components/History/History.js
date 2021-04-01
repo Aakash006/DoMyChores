@@ -62,9 +62,9 @@ export class History extends Component {
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
+                                        <td><Badge variant="success">{request.status}</Badge></td>
                                         {localStorage.getItem('userType') === 'Service Provider' && request.status === 'ACCEPTED' ? <td><Button onClick={(e) => this.completeRequest(request.id, e)}>Complete</Button></td> : ('')}
                                         {request.completedTimeStamp ? <td><b>Completed At : </b>{request.completedTimeStamp}</td> : ('')}
-                                        <td><Badge variant="success">{request.status}</Badge></td>
                                     </tr>
                                 )}
                             </tbody>

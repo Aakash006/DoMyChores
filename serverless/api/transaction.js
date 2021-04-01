@@ -90,6 +90,7 @@ module.exports.createRequest = async (event, context, callback) => {
             id: reqId,
             requesterUserName: requestBody.requesterUserName,
             requestedFor: requestBody.requestDate,
+            address: requestBody.address,
             taskerUserName: '',
             submissionDate: new Date().toISOString(),
             status: 'REQUESTED',
