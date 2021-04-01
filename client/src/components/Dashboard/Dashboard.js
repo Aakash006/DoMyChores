@@ -26,7 +26,7 @@ export class Dashboard extends Component {
             });
     }
 
-    handleClick = (task) => {
+    handleClick = (e, task) => {
         // Make Task
         this.props.history.push(`/request/${task}`);
     }
@@ -42,18 +42,16 @@ export class Dashboard extends Component {
                             <Col md={4}>
                                 <Card className="serviceCard" style={{flex: 1}} bg="dark" text="white">
                                     <Card.Body>
-                                        <Card.Title className="taskName">{service.task}</Card.Title>
+                                        <Card.Title className="taskName"><b>{service.task}</b></Card.Title>
                                         <Card.Text>{service.subTasks.length > 0 ?
-                                        (<p>{service.subTasks.forEach((task) => {
-                                            return (<p>{task},</p>);
-                                        })}</p>)
-                                        : ('')
-                                        }
+                                        (<p>{service.subTasks.map((task, index) => {
+                                            return (<span>{task} {service.subTasks.length - 1 === index? ('') : (', ')}</span>)
+                                        })}</p>) : ('') }
                                         </Card.Text>
                                         <Row>
                                         {
                                             this.state.userType === 'Customer' && 
-                                            <Button className="createBtn" onClick={this.handleClick(service.task)}>Create a Task</Button>
+                                            <Button className="createBtn" onClick={(e) => this.handleClick(e, service.task)}>Create a Task</Button>
                                         }
                                         </Row>
                                     </Card.Body>

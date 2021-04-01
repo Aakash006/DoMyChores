@@ -97,3 +97,13 @@ functions:
           path: /api/service-requests/tasker-accept
           method: post
           cors: true
+
+  transaction-taskerAccept:
+    handler: api/transaction.taskerSetCompleteTask
+    memorySize: 128
+    description: Update transaction when tasker completes a service request.
+    events:
+      - http:
+          path: /api/service-requests/tasker-complete
+          method: post
+          cors: true

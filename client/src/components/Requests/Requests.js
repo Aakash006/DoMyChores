@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import NavBar from '../Navbar/Navbar';
-import { Table, Button, Container } from 'react-bootstrap';
+import { Table, Button, Container, Badge } from 'react-bootstrap';
 import './Requests.css';
 
 export class Requests extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // dummy data 
-            requests: [
-                {
-                    address: 'juhu',
-                    requestDate: '2021-09-10'
-                },
-                {
-                    address: '1050',
-                    requestDate: '2021-05-10'
-                }
-            ]
+            requests: []
         }
 
         this.fetchRequests();
@@ -27,22 +16,23 @@ export class Requests extends Component {
         fetch(`/api/service-requests/`, {method: 'GET'})
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                this.setState({requests: data})
+                this.setState({requests: data});
+                console.log(this.state.requests[0]);
             }).catch((error) => {
                 console.log("error: " + error);
             });
     }
 
-    acceptRequest = (event) => {
+    acceptRequest = (id, e) => {
+        console.log(id);
         var today = new Date(),
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        fetch(`/api/service-requests/tacker-accept`, {
+        fetch(`/api/service-requests/tasker-accept`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                'acceptedDate': date,
-                'accepterId': localStorage.getItem('id')
+                'id': id,
+                'taskerUserName': localStorage.getItem('username')
             })
         })
             .then(res => res.json())
@@ -66,9 +56,14 @@ export class Requests extends Component {
                             <tbody>
                                 {this.state.requests.map((request) =>
                                     <tr>
-                                        <td>{request.address}</td>
-                                        <td>{request.requestDate}</td>
-                                        <td><Button onClick={this.acceptRequest}>Accept</Button></td>
+                                        <td><b>Requested by: </b>{request.requesterUserName}</td>
+                                        <td>{request.requestedTasks.map((task, index) => {
+                                            return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
+                                        })}</td>
+                                        {request.taskerUserName ? <td><b>Accepted by: </b>{request.taskerUserName}</td> : ('')}
+                                        <td><Badge variant="success">{request.status}</Badge></td>
+                                        {request.status === 'REQUESTED' ? 
+                                        <td><Button onClick={(e) => this.acceptRequest(request.id, e)}>Accept</Button></td> : ''}
                                     </tr>
                                 )}
                             </tbody>

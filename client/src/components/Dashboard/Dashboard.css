@@ -10,6 +10,10 @@
     margin-bottom: 20px;
 }
 
+.taskName {
+    font-size: 35px;
+}
+
 .createBtn {
     margin-left: auto;
     margin-right: auto;
