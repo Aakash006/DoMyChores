@@ -98,7 +98,7 @@ functions:
           method: post
           cors: true
 
-  transaction-taskerAccept:
+  transaction-taskerSetCompleteTask:
     handler: api/transaction.taskerSetCompleteTask
     memorySize: 128
     description: Update transaction when tasker completes a service request.

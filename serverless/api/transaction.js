@@ -108,6 +108,7 @@ module.exports.createRequest = async (event, context, callback) => {
         .then(res => {
             response.statusCode = 200;
             response.body = JSON.stringify({
+                success: true,
                 msg: 'Service request has been submitted!',
                 id: reqId
             });
@@ -116,6 +117,7 @@ module.exports.createRequest = async (event, context, callback) => {
         .catch(err => {
             response.statusCode = 500;
             response.body = JSON.stringify({
+                success: false,
                 msg: 'Internal Server Error',
                 err: err
             });
@@ -139,12 +141,19 @@ module.exports.deleteRequest = async(event, context, callback) => {
     await db.delete(params).promise()
         .then(res => {
             response.statusCode = 200
-            response.body = JSON.stringify({ msg: 'Service request has been removed'})
+            response.body = JSON.stringify({ 
+                success: true,
+                msg: 'Service request has been removed'
+            });
             callback(null, response)
         })
         .catch(err => {
             response.statusCode = 500
-            response.body = JSON.stringify({ msg: 'Internal Server Error', err: err})
+            response.body = JSON.stringify({ 
+                success: false,
+                msg: 'Internal Server Error', 
+                err: err
+            });
             callback(null, response)
         })
 };
@@ -209,12 +218,19 @@ module.exports.taskerAccept = async(event, context, callback) => {
     await db.update(params).promise()
         .then(res => {
             response.statusCode = 200
-            response.body = JSON.stringify({ msg: 'Transaction updated.'})
+            response.body = JSON.stringify({ 
+                success: true,
+                msg: 'Transaction updated.'
+            });
             callback(null, response)
         })
         .catch(err => {
             response.statusCode = 500
-            response.body = JSON.stringify({ msg: 'Internal Server Error', err: err})
+            response.body = JSON.stringify({
+                success: false,
+                msg: 'Internal Server Error',
+                err: err
+            });
             callback(null, response)
         })
 };
@@ -233,10 +249,9 @@ module.exports.taskerSetCompleteTask = async(event, context, callback) => {
         Key: {
             id : requestBody.id
         },
-        UpdateExpression: 'set taskerUserName = :taskerUserName, #status = :status, acceptedTimeStamp = :acceptedTimeStamp, statusChangeTimeStamp = :statusChangeTimeStamp',
+        UpdateExpression: 'set #status = :status, completedTimeStamp = :completedTimeStamp, statusChangeTimeStamp = :statusChangeTimeStamp',
         ExpressionAttributeNames: {'#status' : 'status'},
         ExpressionAttributeValues: { 
-            ':taskerUserName': requestBody.taskerUserName,
             ':status': 'DONE',
             ':completedTimeStamp': new Date().toISOString(),
             ':statusChangeTimeStamp': new Date().toISOString()
@@ -245,12 +260,19 @@ module.exports.taskerSetCompleteTask = async(event, context, callback) => {
     await db.update(params).promise()
         .then(res => {
             response.statusCode = 200
-            response.body = JSON.stringify({ msg: 'Transaction updated.'})
+            response.body = JSON.stringify({
+                success: true,
+                msg: 'Transaction updated.'
+            });
             callback(null, response)
         })
         .catch(err => {
             response.statusCode = 500
-            response.body = JSON.stringify({ msg: 'Internal Server Error', err: err})
+            response.body = JSON.stringify({
+                success: false,
+                msg: 'Internal Server Error',
+                err: err
+            });
             callback(null, response)
         })
 };

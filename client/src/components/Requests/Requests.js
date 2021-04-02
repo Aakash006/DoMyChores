@@ -17,14 +17,12 @@ export class Requests extends Component {
             .then(res => res.json())
             .then(data => {
                 this.setState({requests: data});
-                console.log(this.state.requests[0]);
             }).catch((error) => {
                 console.log("error: " + error);
             });
     }
 
     acceptRequest = (id, e) => {
-        console.log(id);
         var today = new Date(),
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         fetch(`/api/service-requests/tasker-accept`, {
@@ -39,6 +37,7 @@ export class Requests extends Component {
             .then((data) => {
                 if (data.success) {
                     console.log('Success!');
+                    window.location.reload(false);
                 } else {
                     console.log('Error: ' + data.message);
                 }
@@ -60,11 +59,11 @@ export class Requests extends Component {
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
-                                        {request.requestedFor ? <td><b>Requested For : </b>{requestedFor}</td> : ('')}
+                                        {/* {request.requestedFor ? <td><b>Requested For : </b>{requestedFor}</td> : ('')} */}
                                         {request.taskerUserName ? <td><b>Accepted by: </b>{request.taskerUserName}</td> : ('')}
                                         <td><Badge variant="success">{request.status}</Badge></td>
-                                        <td>{request.status === 'REQUESTED' ? 
-                                        <Button onClick={(e) => this.acceptRequest(request.id, e)}>Accept</Button> : ''}</td>
+                                        {request.status === 'REQUESTED' ? 
+                                        <td><Button onClick={(e) => this.acceptRequest(request.id, e)}>Accept</Button></td> : ''}
                                     </tr>
                                 )}
                             </tbody>

@@ -38,6 +38,7 @@ export class History extends Component {
             .then((data) => {
                 if (data.success) {
                     console.log('Success!');
+                    window.location.reload(false);
                 } else {
                     console.log('Error: ' + data.message);
                 }
