@@ -38,6 +38,7 @@ export class History extends Component {
             .then((data) => {
                 if (data.success) {
                     console.log('Success!');
+                    window.location.reload(false);
                 } else {
                     console.log('Error: ' + data.message);
                 }
@@ -58,13 +59,13 @@ export class History extends Component {
                                 {this.state.requests.map((request) =>
                                     <tr>
                                         {localStorage.getItem('userType') === 'Service Provider' ? <td><b>Requested by: </b>{request.requesterUserName}</td> : ('')}
-                                        {request.requestedDate ? <td><b>Requested For : </b>{request.requestedDate}</td> : ('')}
+                                        {request.requestedDate ? <td><b>Requested For : </b>{request.requestedFor}</td> : ('')}
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
+                                        <td><Badge variant="success">{request.status}</Badge></td>
                                         {localStorage.getItem('userType') === 'Service Provider' && request.status === 'ACCEPTED' ? <td><Button onClick={(e) => this.completeRequest(request.id, e)}>Complete</Button></td> : ('')}
                                         {request.completedTimeStamp ? <td><b>Completed At : </b>{request.completedTimeStamp}</td> : ('')}
-                                        <td><Badge variant="success">{request.status}</Badge></td>
                                     </tr>
                                 )}
                             </tbody>

@@ -26,11 +26,9 @@ function App() {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <History/>
                         }
                     </Route>
-                    <Route path='/request/:task'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Request/>
-                        }
-                    </Route>
+                    {
+                        localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Route path={`/request/:task`} component={Request}/>
+                    }
                     <Route path='/requests'>
                         {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Requests/>
