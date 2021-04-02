@@ -98,7 +98,7 @@ functions:
           method: post
           cors: true
 
-  transaction-taskerAccept:
+  transaction-taskerSetCompleteTask:
     handler: api/transaction.taskerSetCompleteTask
     memorySize: 128
     description: Update transaction when tasker completes a service request.
@@ -106,4 +106,44 @@ functions:
       - http:
           path: /api/service-requests/tasker-complete
           method: post
+          cors: true
+
+  profile-getProfileByUsername:
+    handler: api/profile.getProfileUsername
+    memorySize: 128
+    description: Retrieve profile information using username.
+    events:
+      - http:
+          path: /api/profile/{username}
+          method: get
+          cors: true
+
+  review-getReview:
+    handler: api/review.getReviewsUsingUsername
+    memorySize: 128
+    description: Get a review using username.
+    events:
+      - http:
+          path: /api/review/{username}
+          method: get
+          cors: true
+
+  review-addReview:
+    handler: api/review.addReview
+    memorySize: 128
+    description: Add a review.
+    events:
+      - http:
+          path: /api/review/add
+          method: post
+          cors: true
+
+  review-deleteReview:
+    handler: api/review.deleteReview
+    memorySize: 128
+    description: Delete a review using review ID.
+    events:
+      - http:
+          path: /api/review/delete/{id}
+          method: delete
           cors: true
