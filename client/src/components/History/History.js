@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
 import { Container, Table, Badge, Button } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import { NavBar } from '../Navbar/Navbar';
 
 export class History extends Component {
@@ -13,7 +14,8 @@ export class History extends Component {
     }
 
     fetchRecents() {
-        fetch(`/api/service-requests/get-user?requesterUserName=${localStorage.getItem('username')}`, {
+        const userType = localStorage.getItem('userType') === 'Customer' ? 'requesterUserName' : 'taskerUserName';
+        fetch(`/api/service-requests/get-user?${userType}=${localStorage.getItem('username')}`, {
             method: 'GET'
         })
             .then(res => res.json())
@@ -47,6 +49,20 @@ export class History extends Component {
             });
     }
 
+    getStatusStyle(status) {
+        if (status === 'REQUESTED') {
+            return 'warning';
+        } else if (status === 'ACCEPTED') {
+            return 'primary';
+        } else {
+            return 'success';
+        }
+    }
+
+    review = (id, event) => {
+        this.props.history.push("/review");
+    }
+
     render() {
         return (
             <div>
@@ -63,8 +79,12 @@ export class History extends Component {
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
-                                        <td><Badge variant="success">{request.status}</Badge></td>
+                                        {/* {request.address ? <td><b>Address: </b>{request.address}</td> : ('')} */}
+                                        {/* {request.requestedFor ? <td><b>Requested For : </b>{request.requestedFor}</td> : ('')} */}
+                                        <td><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></td>
+                                        {localStorage.getItem('userType') === 'Customer' && request.taskerUserName ? <td><b>Accepted By: </b>{request.taskerUserName}</td> : ('')}
                                         {localStorage.getItem('userType') === 'Service Provider' && request.status === 'ACCEPTED' ? <td><Button onClick={(e) => this.completeRequest(request.id, e)}>Complete</Button></td> : ('')}
+                                        {localStorage.getItem('userType') === 'Customer' && request.status === 'DONE' ? <td><Button onClick={(e) => this.review(request.id, e)}>Review</Button></td> : ('')}
                                         {request.completedTimeStamp ? <td><b>Completed At : </b>{request.completedTimeStamp}</td> : ('')}
                                     </tr>
                                 )}
@@ -78,4 +98,4 @@ export class History extends Component {
     }
 }
 
-export default History;
+export default withRouter(History);

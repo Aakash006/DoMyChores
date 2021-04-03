@@ -1,6 +1,8 @@
 import { React, Component } from 'react';
 import { Form, Button, Col, Container } from 'react-bootstrap';
 import { NavBar } from '../Navbar/Navbar';
+import { withRouter } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import './Request.css';
 import services from '../../assets/service.json';
 
@@ -36,8 +38,10 @@ export class Request extends Component {
             .then((data) => {
                 if (data.success) {
                     console.log('Success!');
+                    toast.success('Request Submitted');
                 } else {
                     console.log('Error: ' + data.message);
+                    toast.error('Request Could not be Submitted');
                 }
             }).catch((error) =>{
                 console.log('error: ' + error);
@@ -54,6 +58,7 @@ export class Request extends Component {
         return (
             <div>
                 <NavBar />
+                <ToastContainer/>
                 <div className="request">
                     <h2>Request for: {this.props.match.params.task}</h2>
                     <Container>
@@ -83,4 +88,4 @@ export class Request extends Component {
     }
 }
 
-export default Request;
+export default withRouter(Request);

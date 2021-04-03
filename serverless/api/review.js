@@ -29,12 +29,12 @@ module.exports.addReview = async(event, context, callback) => {
     await db.put(params).promise()
         .then(res => {
             response.statusCode = 200
-            response.body = JSON.stringify({ msg: "Review successfully added!", id: res.id })
+            response.body = JSON.stringify({ success: true, msg: "Review successfully added!", id: res.id })
             callback(null, response)
         })
         .catch(err => {
             response.statusCode = 500
-            response.body = JSON.stringify({ msg: 'Internal Server Error', err: err})
+            response.body = JSON.stringify({ success: false,  msg: 'Internal Server Error', err: err})
             callback(null, response)
         })
 };
@@ -61,11 +61,11 @@ module.exports.getReviewsUsingUsername = async(event, context, callback) => {
         .then(res => {
             if (res.Count > 0) {
                 response.statusCode = 200
-                response.body = JSON.stringify(res.Items)
+                response.body = JSON.stringify({ success: true, reviews: res.Items})
                 callback(null, response)
             } else {
                 response.statusCode = 404
-                response.body = JSON.stringify({ msg: 'No reviews found.'})
+                response.body = JSON.stringify({  success: false, msg: 'No reviews found.'})
                 callback(null, response)
             }
         })
@@ -91,12 +91,12 @@ module.exports.deleteReview = async(event, context, callback) => {
     await db.delete(params).promise()
         .then(res => {
             response.statusCode = 200
-            response.body = JSON.stringify({ msg: 'Service request has been removed'})
+            response.body = JSON.stringify({ success: true, msg: 'Review has been removed'})
             callback(null, response)
         })
         .catch(err => {
             response.statusCode = 500
-            response.body = JSON.stringify({ msg: 'Internal Server Error', err: err})
+            response.body = JSON.stringify({  success: false, msg: 'Internal Server Error', err: err})
             callback(null, response)
         })
 };

@@ -8,6 +8,7 @@ import { Profile } from './components/Profile/Profile';
 import { History } from './components/History/History';
 import { Request } from './components/Request/Request';
 import { Requests } from './components/Requests/Requests';
+import Review from './components/ReviewRequest/Review';
 
 
 function App() {
@@ -26,9 +27,16 @@ function App() {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <History/>
                         }
                     </Route>
-                    {
-                        localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Route path={`/request/:task`} component={Request}/>
-                    }
+                    <Route path='/request/:task'>
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Request/>
+                        }
+                    </Route>
+                    <Route path='/review'>
+                        {
+                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Review/>
+                        }
+                    </Route>
                     <Route path='/requests'>
                         {
                             localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Requests/>
