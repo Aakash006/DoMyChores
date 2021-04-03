@@ -8,6 +8,9 @@ import NavBar from "../Navbar/Navbar";
 export class Profile extends React.Component {
     constructor(props) {
         super(props);
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
 
         this.state = {
             username: localStorage.getItem('username'),

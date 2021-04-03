@@ -5,6 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export class Requests extends Component {
     constructor(props) {
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
         super(props);
         this.state = {
             requests: []

@@ -10,7 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 export class Dashboard extends Component {
     constructor(props) {
         super(props);
-
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
         this.state = {
             userType: localStorage.getItem('userType')
         };
@@ -28,7 +30,7 @@ export class Dashboard extends Component {
 
     handleClick = (e, task) => {
         // Make Task
-        this.props.history.push(`/request/${task}`);
+        window.location.replace(`${window.location.protocol + '//' + window.location.host}/request/${task}`);
     }
 
     render() {

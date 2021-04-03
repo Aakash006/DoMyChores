@@ -18,7 +18,7 @@ export class NavBar extends React.Component {
     handleClose = () => {
         this.setState({ show: !this.state.show });
         localStorage.clear();
-        this.props.history.push("/login");
+        window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
     }
 
     render() {

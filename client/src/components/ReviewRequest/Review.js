@@ -6,10 +6,15 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default class Review extends Component {
     constructor(props) {
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
         super(props);
         this.state = {
             ratings: "0",
-            picture: ""
+            picture: "",
+            from: this.props.match.params.requester,
+            to: this.props.match.params.provider
         };
     }
 
@@ -31,10 +36,10 @@ export default class Review extends Component {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    'fromUsername': 'dummy',
-                    'toUsernamesword': 'dummy',
+                    'fromUsername': this.state.from,
+                    'toUsername': this.state.to,
                     'ratings': this.state.ratings,
-                    'picturesLinks': this.state.picture
+                    'picturesLinks': 'dummy' //this.state.picture
                 })
             })
                 .then(res => res.json())
@@ -43,6 +48,7 @@ export default class Review extends Component {
                         toast.success('Review Posted');
                     } else {
                         toast.error('Review Could Not Be Posted');
+                        console.log('Error ' + data.msg);
                     }
                 });
     }
@@ -55,32 +61,43 @@ export default class Review extends Component {
                 <div className="reviewContent">
                 <Container>
                 <Form onSubmit={this.review}>
-                    <Form.Row controlid="formBasicEmail">
-                            <Form.Label className="label">Ratings</Form.Label>
-                            <Col>
-                            <Form.Control
-                                type="range"
-                                min="0"
-                                max="5"
-                                step="0.5"
-                                placeholder="ratings"
-                                name="ratings"
-                                tooltip='on'
-                                value={this.state.ratings}
-                                onChange={(e) => this.handleChange(e)}
-                            />
-                            </Col>
-                            <Col>
-                                <Form.Control size="sm" value={this.state.ratings}/>
-                            </Col>
-                        </Form.Row>
+                    <Form.Row className="formRow">
+                        <Col>
+                            <Form.Label className="label">From</Form.Label>
+                            <Form.Control size="sm" value={this.state.from} readOnly/>
+                        </Col>
 
-                        <Form.Row>
-                            <Form.Label className="label">Picture</Form.Label>
-                            <Form.File size="sm" id="picture" onChange={this.submitPicture}/>
-                        </Form.Row>
+                        <Col>
+                            <Form.Label className="label">To</Form.Label>
+                            <Form.Control size="sm" value={this.state.to} readOnly/>
+                        </Col>
+                    </Form.Row>
 
-                        <Button type="submit">Submit</Button>
+                    <Form.Row className="formRow">
+                        <Form.Label className="label">Rating</Form.Label>
+                        <Col>
+                        <Form.Control
+                            type="range"
+                            min="0"
+                            max="5"
+                            step="0.5"
+                            placeholder="ratings"
+                            name="ratings"
+                            tooltip='on'
+                            value={this.state.ratings}
+                            onChange={(e) => this.handleChange(e)}
+                        />
+                        </Col>
+                        <Col>
+                            <Form.Control size="sm" value={this.state.ratings}/>
+                        </Col>
+                    </Form.Row>
+
+                    <Form.Row className="formRow">
+                        <Form.Label className="label">Picture</Form.Label>
+                        <Form.File size="sm" id="picture" onChange={this.submitPicture}/>
+                    </Form.Row>
+                    <Button type="submit">Submit</Button>
                 </Form>
                 </Container>
                 </div>

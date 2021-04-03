@@ -17,31 +17,11 @@ function App() {
             <Router>
                 <Switch>
                     <Redirect exact from="/" to="/dashboard" />
-                    <Route path='/dashboard'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Dashboard/>
-                        }
-                    </Route>
-                    <Route path='/history'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <History/>
-                        }
-                    </Route>
-                    <Route path='/request/:task'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Request/>
-                        }
-                    </Route>
-                    <Route path='/review'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Review/>
-                        }
-                    </Route>
-                    <Route path='/requests'>
-                        {
-                            localStorage.getItem("id") === null ? <Redirect to="/login"/> : <Requests/>
-                        }
-                    </Route>
+                    <Route path='/dashboard' component={Dashboard}/>
+                    <Route path='/history' component={History}/>
+                    <Route path='/request/:task' component={Request}/>
+                    <Route path='/review/:requester/:provider' component={Review} />
+                    <Route path='/requests' component={Requests}/>
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <Route path='/profile' component={Profile} />

@@ -35,7 +35,7 @@ export class Register extends React.Component {
             })
         })
             .then(res => res.json())
-            .then(dat => this.props.history.push("/login"));
+            .then(dat => window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`));
     };
 
     render() {

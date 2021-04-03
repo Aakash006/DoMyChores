@@ -9,6 +9,9 @@ import services from '../../assets/service.json';
 export class Request extends Component {
     constructor(props) {
         super(props);
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
         const taskName = this.props.match.params.task;
         let tempTask = services.find(wholeTask => wholeTask.task === taskName);
         tempTask = tempTask.subTasks.length > 0 ? tempTask.subTasks : [tempTask.task];
