@@ -14,8 +14,10 @@ export class History extends Component {
         this.state = {
             requests: []
         };
+    }
 
-        this.fetchRecents();
+    componentDidMount() {
+        this.fetchRecents()
     }
 
     fetchRecents() {
