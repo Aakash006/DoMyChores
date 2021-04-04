@@ -89,7 +89,7 @@ export default class Review extends Component {
                         />
                         </Col>
                         <Col>
-                            <Form.Control size="sm" value={this.state.ratings}/>
+                            <Form.Control size="sm" value={this.state.ratings} readOnly/>
                         </Col>
                     </Form.Row>
 
