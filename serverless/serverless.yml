@@ -5,8 +5,11 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
+  region: us-east-1
   lambdaHashingVersion: 20201221
-
+  environment:
+    imageUploadBucket: ${self:custom.imageUploadBucket}
+    region: ${self:provider.region}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -16,7 +19,20 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - s3:PutObject
+        - s3:PutObjectAcl
       Resource: "*"
+
+resources:
+  Resources:
+    ImageStorageBucket:
+        Type: "AWS::S3::Bucket"
+        Properties:
+          BucketName: ${self:custom.imageUploadBucket}
+          AccessControl: PublicRead
+
+custom:
+  imageUploadBucket: review-image-bucket
 
 functions:
   register:
@@ -146,4 +162,14 @@ functions:
       - http:
           path: /api/review/delete/{id}
           method: delete
+          cors: true
+  
+  image-upload:
+    handler: api/image.upload
+    memorySize: 128
+    description: Upload review image.
+    events:
+      - http:
+          path: /api/image-upload
+          method: post
           cors: true

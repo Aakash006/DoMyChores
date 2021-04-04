@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Aakash006/DoMyChores#readme",
   "dependencies": {
+    "file-type": "^16.3.0",
     "uuid": "^8.3.2"
   }
 }
