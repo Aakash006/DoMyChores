@@ -41,46 +41,60 @@ export default class ProviderHistory extends Component {
             <div>
                 {
                     this.props.requests['msg'] === 'No transactions found.' ? <h3>No history</h3> :
-                    <Container>
-                            {this.props.requests.map((request)=> {
-                                return <Row>
-                                <Col>
-                                {request.status === 'ACCEPTED' ? 
-                                    <Card className="serviceCard" style={{flex: 1}} bg="dark" text="white">
-                                        <Card.Body>
-                                            <Card.Title className="taskName"><b>{request.requestedFor}</b></Card.Title>
-                                            <Card.Text className="text"><b>Requested By: </b>{request.requesterUserName}</Card.Text>
-                                            <Card.Text className="text"><b>Tasks: </b>{request.requestedTasks.map((task, index) => {
-                                                return task + (index === request.requestedTasks.length - 1 ? '' : ', ') })}
-                                            </Card.Text>
-                                            <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
-                                            <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
-                                            <Row>
-                                            {
-                                                request.status === 'ACCEPTED' ? <Button className="completeBtn" onClick={(e) => this.completeRequest(request.id, e)}>Complete</Button> : ''
-                                            }
-                                            </Row>
-                                        </Card.Body>
-                                    </Card>
-                                 : ('')}
-                                </Col>
-                                <Col>
-                                    {request.status === 'DONE' ?
-                                    <Card className="serviceCard" style={{flex: 1}} bg="dark" text="white">
-                                        <Card.Body>
-                                            <Card.Title className="taskName"><b>{request.requestedFor}</b></Card.Title>
-                                            <Card.Text className="text"><b>Requested By: </b>{request.requesterUserName}</Card.Text>
-                                            <Card.Text className="text"><b>Tasks: </b>{request.requestedTasks.map((task, index) => {
-                                                return task + (index === request.requestedTasks.length - 1 ? '' : ', ') })}
-                                            </Card.Text>
-                                            <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
-                                            <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
-                                            {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
-                                        </Card.Body>
-                                    </Card>: ('')}
-                                </Col>
-                                 </Row>})}
-                        </Container>}
+                        <div>
+                            <div style={{ padding: '20px', textAlign: 'initial' }}>
+                                <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Accepted</h1>
+                                <Container><Row>
+                                    {this.props.requests.map((request, id) =>
+
+                                        request.status === 'ACCEPTED' && <Col key={id} md={4}>
+                                            <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
+                                                <Card.Body>
+                                                    <Card.Title className="taskName"><b>{request.requestedFor}</b></Card.Title>
+                                                    <Card.Text className="text"><b>Requested By: </b>{request.requesterUserName}</Card.Text>
+                                                    <Card.Text className="text"><b>Tasks: </b>{request.requestedTasks.map((task, index) => {
+                                                        return task + (index === request.requestedTasks.length - 1 ? '' : ', ')
+                                                    })}
+                                                    </Card.Text>
+                                                    <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
+                                                    <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
+                                                    <Row>
+                                                        {
+                                                            request.status === 'ACCEPTED' ? <Button className="completeBtn" onClick={(e) => this.completeRequest(request.id, e)}>Complete</Button> : ''
+                                                        }
+                                                    </Row>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>)}
+                                </Row>
+                                </Container>
+                            </div>
+                            <div style={{ padding: '20px', textAlign: 'initial' }}>
+                                <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Done</h1>
+                                <Container>
+                                    <Row>
+                                        {this.props.requests.map((request, id) =>
+
+                                            request.status === 'DONE' && <Col key={id} md={4}>
+                                                <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
+                                                    <Card.Body>
+                                                        <Card.Title className="taskName"><b>{request.requestedFor}</b></Card.Title>
+                                                        <Card.Text className="text"><b>Requested By: </b>{request.requesterUserName}</Card.Text>
+                                                        <Card.Text className="text"><b>Tasks: </b>{request.requestedTasks.map((task, index) => {
+                                                            return task + (index === request.requestedTasks.length - 1 ? '' : ', ')
+                                                        })}
+                                                        </Card.Text>
+                                                        <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
+                                                        <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
+                                                        {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
+                                                    </Card.Body>
+                                                </Card>
+                                            </Col>
+                                        )}
+                                    </Row>
+                                </Container>
+                            </div>
+                        </div>}
             </div>
         )
     }

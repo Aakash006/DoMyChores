@@ -50,7 +50,7 @@ export class Profile extends React.Component {
                     <p>Email: {this.state.email}</p>
                 </Jumbotron>
                 {
-                    localStorage.getItem('userType') === 'Service Provider' && this.state.reviewList.length > 0 ?
+                    localStorage.getItem('userType') === 'Service Provider' ? (this.state.reviewList.length > 0 ?
                         <div style={{padding: '10px', textAlign: 'initial'}}>
                             <h1 style={{borderBottom: '1px solid rgb(199, 205, 209)'}}>Reviews</h1>
                             {
@@ -79,9 +79,7 @@ export class Profile extends React.Component {
                             }
                         </div>
                         :
-                        <h1>No reviews</h1>
-
-                }
+                    <h1>No reviews</h1>) : ('')}
             </>
         );
     }
