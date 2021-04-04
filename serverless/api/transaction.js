@@ -210,7 +210,7 @@ module.exports.taskerAccept = async(event, context, callback) => {
         ExpressionAttributeNames: {'#status' : 'status'},
         ExpressionAttributeValues: { 
             ':taskerUserName': requestBody.taskerUserName,
-            ':status': 'ACCEPETED',
+            ':status': 'ACCEPTED',
             ':acceptedTimeStamp': new Date().toISOString(),
             ':statusChangeTimeStamp': new Date().toISOString()
         }

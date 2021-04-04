@@ -2,6 +2,7 @@ import "./Register.css";
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { withRouter } from "react-router";
+import { toast } from 'react-toastify';
 
 export class Register extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ export class Register extends React.Component {
             })
         })
             .then(res => res.json())
-            .then(dat => this.props.history.push("/login"));
+            .then(dat => window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`));
     };
 
     render() {

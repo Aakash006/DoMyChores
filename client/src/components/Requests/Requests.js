@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Table, Button, Container, Badge } from 'react-bootstrap';
 import './Requests.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 export class Requests extends Component {
     constructor(props) {
+        if (localStorage.getItem("id") === null) {
+            window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
+        }
         super(props);
         this.state = {
             requests: []
@@ -16,7 +20,8 @@ export class Requests extends Component {
         fetch(`/api/service-requests/`, {method: 'GET'})
             .then(res => res.json())
             .then(data => {
-                this.setState({requests: data});
+                const requested = data.filter((request) => request.status.includes("REQUESTED"));
+                this.setState({requests: requested});
             }).catch((error) => {
                 console.log("error: " + error);
             });
@@ -38,8 +43,10 @@ export class Requests extends Component {
                 if (data.success) {
                     console.log('Success!');
                     window.location.reload(false);
+                    toast.success('Request Accepted');
                 } else {
                     console.log('Error: ' + data.message);
+                    toast.error('Request Could Not Be Accepeted');
                 }
             }).catch((error) =>{
                 console.log('error: ' + error);
@@ -49,6 +56,7 @@ export class Requests extends Component {
     render() {
         return (
             <div>
+                <ToastContainer/>
                 <Container>
                     <Table className="requestsTable">
                         {this.state.requests.length > 0 ?
@@ -59,7 +67,8 @@ export class Requests extends Component {
                                         <td>{request.requestedTasks.map((task, index) => {
                                             return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                         })}</td>
-                                        {/* {request.requestedFor ? <td><b>Requested For : </b>{requestedFor}</td> : ('')} */}
+                                        {/* {request.address ? <td><b>Address: </b>{request.address}</td> : ('')} */}
+                                        {/* {request.requestedFor ? <td><b>Requested For : </b>{request.requestedFor}</td> : ('')} */}
                                         {request.taskerUserName ? <td><b>Accepted by: </b>{request.taskerUserName}</td> : ('')}
                                         <td><Badge variant="success">{request.status}</Badge></td>
                                         {request.status === 'REQUESTED' ? 
