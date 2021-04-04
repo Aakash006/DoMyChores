@@ -2,7 +2,6 @@ import "./Register.css";
 import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { withRouter } from "react-router";
-import { toast } from 'react-toastify';
 
 export class Register extends React.Component {
     constructor(props) {

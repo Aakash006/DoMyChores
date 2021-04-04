@@ -73,7 +73,7 @@ export class Profile extends React.Component {
                         </tr>
                     </thead>
                     {this.state.reviewList.map((review) => {
-                        <tr>
+                         return (<tr>
                             <td>
                                 {review.fromUsername}
                             </td>
@@ -86,7 +86,7 @@ export class Profile extends React.Component {
                             <td>
                                 {review.pictureLinks}
                             </td>
-                        </tr>
+                        </tr>)
                     })}
                 </Table> : ('')}
             </div>

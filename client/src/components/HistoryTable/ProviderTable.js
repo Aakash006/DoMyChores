@@ -22,9 +22,6 @@ export default class ProviderTable extends Component {
     }
 
     completeRequest = (id, e) => {
-        console.log(id);
-        var today = new Date(),
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         fetch(`/api/service-requests/tasker-complete`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -28,8 +28,6 @@ export class Requests extends Component {
     }
 
     acceptRequest = (id, e) => {
-        var today = new Date(),
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         fetch(`/api/service-requests/tasker-accept`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
