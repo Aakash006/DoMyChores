@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Review.css';
-import { Form, Button, Container, Col } from 'react-bootstrap';
+import { Form, Button, Container, Col, Figure } from 'react-bootstrap';
 import Navbar from '../Navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -38,8 +38,8 @@ export default class Review extends Component {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    image: e.target.result.replace('data:image/png;', ''),
-                    mime: 'image/png',
+                    image: e.target.result.replace(/data:image\/\w+;/, ''),
+                    mime: e.target.result.split(';')[0].replace(/data:/, ''),
                     name: event.target.files[0].name
                 })
             })
@@ -119,6 +119,24 @@ export default class Review extends Component {
                                 <Form.Label className="label">Picture</Form.Label>
                                 <Form.File size="sm" id="picture" onChange={this.submitPicture} />
                             </Form.Row>
+                            {
+                                this.state.pictureLinks.length !== 0 &&
+                                <Form.Row className="formRow">
+                                    {
+                                        this.state.pictureLinks.map((pic, id) => {
+                                            return <Figure key={id}>
+                                                <Figure.Image
+                                                    width={171}
+                                                    height={180}
+                                                    alt="171x180"
+                                                    src={pic}
+                                                />
+                                            </Figure>
+                                        }
+                                        )
+                                    }
+                                </Form.Row>
+                            }
                             <Button type="submit">Submit</Button>
                         </Form>
                     </Container>
