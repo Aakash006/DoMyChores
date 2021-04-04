@@ -2,8 +2,8 @@ import { React, Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { NavBar } from '../Navbar/Navbar';
-import RequesterTable from '../HistoryTable/RequesterTable';
-import ProviderTable from '../HistoryTable/ProviderTable';
+import RequesterHistory from '../HistoryCards/RequesterHistory';
+import ProviderHistory from '../HistoryCards/ProviderHistory';
 
 export class History extends Component {
     constructor(props) {
@@ -58,8 +58,8 @@ export class History extends Component {
             <div>
                 <NavBar />
                 <div>
-                <Container>
-                    {localStorage.getItem('userType') === 'Customer' ? <RequesterTable requests={this.state.requests} /> : <ProviderTable requests={this.state.requests} />}
+                <Container className="cards">
+                    {localStorage.getItem('userType') === 'Customer' ? <RequesterHistory requests={this.state.requests} /> : <ProviderHistory requests={this.state.requests} />}
                 </Container>
             </div>
             </div>
