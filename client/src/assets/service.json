@@ -1,7 +1,84 @@
 [
-    {"task": "Snow Removal", "subTasks" : []}, 
-    {"task": "Grass Removal", "subTasks": []}, 
-    {"task": "Garbage Disposal", "subTasks": []},
-    {"task": "Gardening", "subTasks": []},
-    {"task": "Garden Work", "subTasks": ["Grass Removal", "Gardening"]}
+    {
+        "task": "Snow Removal",
+        "subTasks": [],
+        "description": "Clean snow across driveway/walkway.",
+        "price": 15
+    },
+    {
+        "task": "Grass Removal",
+        "subTasks": [],
+        "description": "Remove grass from lawn.",
+        "price": 80
+    },
+    {
+        "task": "Garbage Disposal",
+        "subTasks": [],
+        "description": "Take out trash across the house.",
+        "price": 5
+    },
+    {
+        "task": "Gardening",
+        "subTasks": [],
+        "description": "Perform gardening duties.",
+        "price": 50
+    },
+    {
+        "task": "Grocery Shopping",
+        "subTasks": [],
+        "description": "Purchase and ship the required items.",
+        "price": 25
+    },
+    {
+        "task": "Clean Dishes",
+        "subTasks": [],
+        "description": "Clean the plates across the house.",
+        "price": 15
+    },
+    {
+        "task": "Mop/Sweep House",
+        "subTasks": [],
+        "description": "Clean the house.",
+        "price": 20
+    },
+    {
+        "task": "Walking Pet",
+        "subTasks": [],
+        "description": "Walking pets around the park.",
+        "price": 10
+    },
+    {
+        "task": "Winter Cleanup Package",
+        "subTasks": [
+            "Snow Removal",
+            "De-Ice Driveways",
+            "De-Ice Walkways"
+        ],
+        "price": 35
+    },
+    {
+        "task": "House Cleanup Package",
+        "subTasks": [
+            "Clean Dishes",
+            "Mop/Sweep House",
+            "Garbage Disposal"
+        ],
+        "price": 40
+    },
+    {
+        "task": "Walking Pet Package",
+        "subTasks": [
+            "Walk Dog",
+            "Walk Cat"
+        ],
+        "price": 30
+    },
+    {
+        "task": "Garden Package",
+        "subTasks": [
+            "Grass Removal",
+            "Gardening"
+        ],
+        "price": 100
+    }
 ]

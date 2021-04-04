@@ -30,8 +30,8 @@ export class NavBar extends React.Component {
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className='mr-auto'>
+                            <Nav.Link className='navLink' href='/' exact='true'>Dashboard</Nav.Link>
                             <Nav.Link className='navLink' href='/history' exact="true">History</Nav.Link>
-                            <Nav.Link className='navLink' href='/favourites' exact="true">Favourites</Nav.Link>
                         </Nav>
                         <Nav className='nav-item ml-auto'>
                             <NavDropdown title={localStorage.getItem('username')} id="collasible-nav-dropdown">

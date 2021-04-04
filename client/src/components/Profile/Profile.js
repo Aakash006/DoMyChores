@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Jumbotron, Table } from "react-bootstrap";
+import { Jumbotron, Card, Figure } from "react-bootstrap";
 
 import NavBar from "../Navbar/Navbar";
 
@@ -18,13 +18,17 @@ export class Profile extends React.Component {
             id: localStorage.getItem('id'),
             reviewList: []
         };
+
+    }
+
+    componentDidMount() {
         if (this.state.userType === 'Service Provider') {
             this.fetchReviews();
         }
     }
 
     fetchReviews() {
-        fetch(`/api/review/${this.state.username}`, {method: 'GET'})
+        fetch(`/api/review/${this.state.username}`, { method: 'GET' })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -36,56 +40,49 @@ export class Profile extends React.Component {
                 console.log("error: " + error);
             });
     }
-    
+
     render() {
         return (
-            <div>
+            <>
                 <NavBar />
-                <Jumbotron>
+                <Jumbotron style={{textAlign: 'center'}}>
                     <h1>{this.state.username}</h1>
                     <p>Email: {this.state.email}</p>
                 </Jumbotron>
-                {localStorage.getItem('userType') === 'Service Provider' && this.state.reviewList.length > 0 ? 
-                (<Table>
-                    <thead>
-                        <tr>
-                            <td colSpan="4">
-                                <h2>Reviews</h2>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                From
-                            </td> 
-                            <td>
-                                Ratings
-                            </td>  
-                            <td>
-                                Date Posted
-                            </td>   
-                            <td>
-                                Pictures
-                            </td>  
-                        </tr>
-                    </thead>
-                    {this.state.reviewList.map((review) => {
-                         return (<tr>
-                            <td>
-                                {review.fromUsername}
-                            </td>
-                            <td>
-                                {review.ratings}
-                            </td>
-                            <td>
-                                {review.datePosted}
-                            </td>
-                            <td>
-                                {review.pictureLinks}
-                            </td>
-                        </tr>)
-                    })}
-                </Table>) : (<h1>No reviews</h1>)}
-            </div>
+                {
+                    localStorage.getItem('userType') === 'Service Provider' && this.state.reviewList.length > 0 ?
+                        <div style={{padding: '10px', textAlign: 'initial'}}>
+                            <h1 style={{borderBottom: '1px solid rgb(199, 205, 209)'}}>Reviews</h1>
+                            {
+                                this.state.reviewList.map((rev, id) => {
+                                    return <Card key={id} style={{marginTop: '20px'}}>
+                                        <Card.Body>
+                                            <Card.Title>Review</Card.Title>
+                                            <Card.Text>From: {rev.fromUsername}</Card.Text>
+                                            <Card.Text>Ratings: {rev.ratings}</Card.Text>
+                                            <Card.Text>Date Posted: {rev.datePosted}</Card.Text>
+                                            {
+                                                rev.pictureLinks.map((pic, pid) => {
+                                                    return <Figure key={pid}>
+                                                        <Figure.Image
+                                                            width={171}
+                                                            height={180}
+                                                            alt="171x180"
+                                                            src={pic}
+                                                        />
+                                                    </Figure>
+                                                })
+                                            }
+                                        </Card.Body>
+                                    </Card>
+                                })
+                            }
+                        </div>
+                        :
+                        <h1>No reviews</h1>
+
+                }
+            </>
         );
     }
 }

@@ -49,36 +49,41 @@ export class Login extends React.Component {
                 <Container className="login">
                     <h2>Login</h2>
                     <Form onSubmit={this.login}>
-                        <Form.Row controlid="formBasicEmail">
-                            <Form.Label className="label">Username</Form.Label>
-                            <Form.Control
-                                type="string"
-                                placeholder="username"
-                                name="username"
-                                value={this.state.username}
-                                onChange={this.handleChange}
-                            />
-                        </Form.Row>
-
-                        <Form.Row controlid="formBasicPassword">
-                            <Form.Label className="label">Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Password"
-                                name="password"
-                                value={this.state.password}
-                                onChange={this.handleChange}
-                            />
-                        </Form.Row>
-                        <Form.Row>
-                            <Button
-                                className="submitBtn"
-                                variant="primary"
-                                type="submit"
-                            >
-                                Login
+                        <Form.Group controlid="formBasicEmail">
+                            <Form.Row>
+                                <Form.Label className="label">Username</Form.Label>
+                                <Form.Control
+                                    type="string"
+                                    placeholder="Username"
+                                    name="username"
+                                    value={this.state.username}
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Row>
+                        </Form.Group>
+                        <Form.Group controlid="formBasicPassword">
+                            <Form.Row>
+                                <Form.Label className="label">Password</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Row>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Row>
+                                <Button
+                                    className="submitBtn"
+                                    variant="primary"
+                                    type="submit"
+                                >
+                                    Login
                             </Button>
-                        </Form.Row>
+                            </Form.Row>
+                        </Form.Group>
                     </Form>
                     <a href="/register">Don't have an account? Register</a>
                 </Container>

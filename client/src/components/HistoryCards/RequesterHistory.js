@@ -1,11 +1,26 @@
 import React, { Component } from 'react';
 import { Button, Badge, Row, Col, Card } from 'react-bootstrap';
 import './HistoryCards.css';
+import Review from '../ReviewRequest/Review';
 
 export default class RequesterHistory extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            openModal: false,
+            requester: '',
+            provider: '',
+        }
+    }
+
     review = (requester, provider, event) => {
-        window.location.replace(`${window.location.protocol + '//' + window.location.host}/review/${requester}/${provider}`);
+        // window.location.replace(`${window.location.protocol + '//' + window.location.host}/review/${requester}/${provider}`);
+        this.setState({ openModal: true, requester: requester, provider: provider})
+    }
+
+    closeModal = () => {
+        this.setState({openModal: false})
     }
 
     getStatusStyle(status) {
@@ -20,14 +35,14 @@ export default class RequesterHistory extends Component {
 
     render() {
         return (
-            <div>
+            <>
                 {
                     this.props.requests.length === 0 ?
                         <h3>No requests</h3> :
                         <Row>
-                            {this.props.requests.map((request)=> 
-                            <Col md={4}>
-                                <Card className="serviceCard" style={{flex: 1}} bg="dark" text="white">
+                            {this.props.requests.map((request, id)=> 
+                            <Col key={id} md={4}>
+                                <Card key={id} className="serviceCard" style={{flex: 1}} bg="dark" text="white">
                                     <Card.Body>
                                         <Card.Title className="taskName"><b>{request.requestedFor}</b></Card.Title>
                                         <Card.Text className="text"><b>Tasks: </b>{request.requestedTasks.map((task, index) => {
@@ -47,7 +62,10 @@ export default class RequesterHistory extends Component {
                             </Col>)}
                         </Row>
                 }
-            </div>
+                {
+                    this.state.openModal && <Review requester={this.state.requester} provider={this.state.provider} modalCloser={this.closeModal}/>
+                }
+            </>
         )
     }
 }

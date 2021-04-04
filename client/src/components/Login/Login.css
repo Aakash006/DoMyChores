@@ -9,16 +9,12 @@
 
 .label {
     margin-right: 10px;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 .submitBtn {
     margin-top: 10px;
     width: 500px;
-}
-
-a {
-    font-size: 18px;
 }
 
 .app {

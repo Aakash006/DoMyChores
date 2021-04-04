@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Review.css';
-import { Form, Button, Container, Col } from 'react-bootstrap';
-import Navbar from '../Navbar/Navbar';
+import { Form, Button, Figure, Modal } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
+import ReactStars from "react-rating-stars-component";
 
 export default class Review extends Component {
     constructor(props) {
@@ -11,24 +11,24 @@ export default class Review extends Component {
         }
         super(props);
         this.state = {
-            ratings: "0",
-            picture: "",
+            ratings: 0,
+            picture: "Choose file input",
             pictureLinks: [],
-            from: this.props.match.params.requester,
-            to: this.props.match.params.provider
+            from: this.props.requester,
+            to: this.props.provider,
+            show: true,
+            comment: ''
         };
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
+    handleChange = (rating) => {
+        this.setState({ ratings: rating })
     };
 
     submitPicture = (event) => {
         event.preventDefault();
         this.setState({
-            picture: event.target.files[0].name,
+            picture: event.target.files[0].name
         });
 
         const reader = new FileReader();
@@ -38,8 +38,8 @@ export default class Review extends Component {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    image: e.target.result.replace('data:image/png;', ''),
-                    mime: 'image/png',
+                    image: e.target.result.replace(/data:image\/\w+;/, ''),
+                    mime: e.target.result.split(';')[0].replace(/data:/, ''),
                     name: event.target.files[0].name
                 })
             })
@@ -61,7 +61,8 @@ export default class Review extends Component {
                 'fromUsername': this.state.from,
                 'toUsername': this.state.to,
                 'ratings': this.state.ratings,
-                'pictureLinks': this.state.pictureLinks
+                'pictureLinks': this.state.pictureLinks,
+                'comment': this.state.comment
             })
         })
             .then(res => res.json())
@@ -75,55 +76,74 @@ export default class Review extends Component {
             });
     }
 
+    handleClose = () => {
+        this.setState({ show: false })
+        this.props.modalCloser()
+    }
+
+    handleCommentChange = (e) => {
+        this.setState({ comment: e.target.value })
+    }
+
     render() {
         return (
-            <div>
-                <Navbar />
+            <Modal show={this.state.show} onHide={this.handleClose} animation={false}>
                 <ToastContainer />
-                <div className="reviewContent">
-                    <Container>
-                        <Form onSubmit={this.review}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Post Review</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={this.review}>
+                        <Form.Group>
                             <Form.Row className="formRow">
-                                <Col>
-                                    <Form.Label className="label">From</Form.Label>
-                                    <Form.Control size="sm" value={this.state.from} readOnly />
-                                </Col>
-
-                                <Col>
-                                    <Form.Label className="label">To</Form.Label>
-                                    <Form.Control size="sm" value={this.state.to} readOnly />
-                                </Col>
+                                <Form.Label className="label">Service Worker</Form.Label>
+                                <Form.Control type="text" value={this.state.to} readOnly />
                             </Form.Row>
+                        </Form.Group>
 
+                        <Form.Group>
                             <Form.Row className="formRow">
-                                <Form.Label className="label">Rating</Form.Label>
-                                <Col>
-                                    <Form.Control
-                                        type="range"
-                                        min="0"
-                                        max="5"
-                                        step="0.5"
-                                        placeholder="ratings"
-                                        name="ratings"
-                                        tooltip='on'
-                                        value={this.state.ratings}
-                                        onChange={(e) => this.handleChange(e)}
-                                    />
-                                </Col>
-                                <Col>
-                                    <Form.Control size="sm" value={this.state.ratings} readOnly />
-                                </Col>
+                                <Form.Label className="label">Comments</Form.Label>
+                                <Form.Control type="text" value={this.state.comment} onChange={this.handleCommentChange} />
                             </Form.Row>
+                        </Form.Group>
 
+                        <Form.Label className="label">Rating</Form.Label>
+                        <div style={{ marginTop: "-15px", marginBottom: "10px" }} >
+
+                            <ReactStars
+                                count={5}
+                                onChange={this.handleChange}
+                                size={35}
+                                activeColor="#ffd700" />
+                        </div>
+
+                        <Form.Row className="formRow">
+                            <Form.Label className="label">Picture</Form.Label>
+                            <Form.File id="custom-file-translate-scss" label={this.state.picture} onChange={this.submitPicture} custom lang="en" />
+                        </Form.Row>
+                        {
+                            this.state.pictureLinks.length !== 0 &&
                             <Form.Row className="formRow">
-                                <Form.Label className="label">Picture</Form.Label>
-                                <Form.File size="sm" id="picture" onChange={this.submitPicture} />
+                                {
+                                    this.state.pictureLinks.map((pic, id) => {
+                                        return <Figure key={id}>
+                                            <Figure.Image
+                                                width={171}
+                                                height={180}
+                                                alt="171x180"
+                                                src={pic}
+                                            />
+                                        </Figure>
+                                    }
+                                    )
+                                }
                             </Form.Row>
-                            <Button type="submit">Submit</Button>
-                        </Form>
-                    </Container>
-                </div>
-            </div>
+                        }
+                        <Button type="submit">Submit</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         )
     }
 }
