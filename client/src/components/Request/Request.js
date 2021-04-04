@@ -1,7 +1,7 @@
 import { React, Component } from 'react';
 import { Form, Button, Col, Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import './Request.css';
 import services from '../../assets/service.json';
 
@@ -48,6 +48,7 @@ export class Request extends Component {
                     console.log('Error: ' + data.message);
                     toast.error('Request Could not be Submitted');
                 }
+                this.handleClose();
             }).catch((error) => {
                 console.log('error: ' + error);
             });
@@ -67,7 +68,6 @@ export class Request extends Component {
     render() {
         return (
             <Modal show={this.state.show} onHide={this.handleClose} animation={false}>
-                <ToastContainer />
                 <Modal.Header closeButton>
                     <Modal.Title>{this.props.task}</Modal.Title>
                 </Modal.Header>
@@ -91,7 +91,7 @@ export class Request extends Component {
                                 <Form.Control placeholder="Work Hard" name="extraNotes" value={this.state.extraNotes} onChange={this.handleChange} />
                             </Form.Row>
                         </Form.Group>
-                        
+
                         <Form.Group>
                             <Form.Row>
                                 <Form.Label>Price</Form.Label>
@@ -102,7 +102,7 @@ export class Request extends Component {
                         <Form.Group>
                             <Form.Row>
                                 <Col>
-                                    <Button variant="primary" type="submit" style={{marginLeft: 'auto', marginRight: 'auto'}}>Submit</Button>
+                                    <Button variant="primary" type="submit" style={{ marginLeft: 'auto', marginRight: 'auto' }}>Submit</Button>
                                 </Col>
                             </Form.Row>
                         </Form.Group>

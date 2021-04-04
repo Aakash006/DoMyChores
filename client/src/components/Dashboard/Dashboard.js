@@ -7,6 +7,8 @@ import { Request } from '../Request/Request';
 import { Requests } from '../Requests/Requests';
 import services from '../../assets/service.json';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 
 export class Dashboard extends Component {
     constructor(props) {
@@ -28,12 +30,12 @@ export class Dashboard extends Component {
     }
 
     closeModal = () => {
-        this.setState({openModal: false})
+        this.setState({ openModal: false })
     }
 
     render() {
         return (
-            <div>
+            <>
                 <NavBar />
                 {localStorage.getItem('userType') === 'Customer' ?
                     <div style={{ padding: '20px', textAlign: 'initial' }}>
@@ -110,9 +112,10 @@ export class Dashboard extends Component {
                     </div>
                     : (<Requests />)}
                 {
-                    this.state.openModal && <Request task={this.state.selectedTask} modalCloser={this.closeModal}/>
+                    this.state.openModal && <Request task={this.state.selectedTask} modalCloser={this.closeModal} />
                 }
-            </div>
+                <ToastContainer />
+            </>
         );
     }
 }
