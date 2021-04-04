@@ -1,6 +1,5 @@
 import { React, Component } from 'react';
-import { Form, Button, Col, Container } from 'react-bootstrap';
-import { NavBar } from '../Navbar/Navbar';
+import { Form, Button, Col, Modal } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import './Request.css';
@@ -12,14 +11,17 @@ export class Request extends Component {
         if (localStorage.getItem("id") === null) {
             window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
         }
-        const taskName = this.props.match.params.task;
+        const taskName = this.props.task;
         let tempTask = services.find(wholeTask => wholeTask.task === taskName);
+        let price = tempTask.price;
         tempTask = tempTask.subTasks.length > 0 ? tempTask.subTasks : [tempTask.task];
         this.state = {
             address: "",
             requestDate: "",
             extraNotes: "",
-            tasks: tempTask
+            tasks: tempTask,
+            price: price,
+            show: true
         }
     }
 
@@ -34,7 +36,7 @@ export class Request extends Component {
                 'requesterUserName': localStorage.getItem('username'),
                 'extraNotes': this.state.extraNotes,
                 'requestedTasks': this.state.tasks,
-                'price' : '70.00'
+                'price': this.state.price
             })
         })
             .then(res => res.json())
@@ -46,7 +48,7 @@ export class Request extends Component {
                     console.log('Error: ' + data.message);
                     toast.error('Request Could not be Submitted');
                 }
-            }).catch((error) =>{
+            }).catch((error) => {
                 console.log('error: ' + error);
             });
     }
@@ -57,36 +59,56 @@ export class Request extends Component {
         });
     };
 
+    handleClose = () => {
+        this.setState({ show: false })
+        this.props.modalCloser()
+    }
+
     render() {
         return (
-            <div>
-                <NavBar />
-                <ToastContainer/>
-                <div className="request">
-                    <h2>Request for: {this.props.match.params.task}</h2>
-                    <Container>
-                        <Form onSubmit={this.submitRequest}>
+            <Modal show={this.state.show} onHide={this.handleClose} animation={false}>
+                <ToastContainer />
+                <Modal.Header closeButton>
+                    <Modal.Title>{this.props.task}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={this.submitRequest}>
+                        <Form.Group>
                             <Form.Row>
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control placeholder="address" name="address" value={this.state.address} onChange={this.handleChange} />
+                                <Form.Control placeholder="Address" name="address" value={this.state.address} onChange={this.handleChange} />
                             </Form.Row>
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Row>
-                                <Form.Label>Date for task</Form.Label>
+                                <Form.Label>Completion Date</Form.Label>
                                 <Form.Control type="date" placeholder="Date" name="requestDate" value={this.state.requestDate} onChange={this.handleChange} />
                             </Form.Row>
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Row>
                                 <Form.Label>Notes</Form.Label>
-                                <Form.Control name="extraNotes" value={this.state.extraNotes} onChange={this.handleChange} />
+                                <Form.Control placeholder="Work Hard" name="extraNotes" value={this.state.extraNotes} onChange={this.handleChange} />
                             </Form.Row>
+                        </Form.Group>
+                        
+                        <Form.Group>
+                            <Form.Row>
+                                <Form.Label>Price</Form.Label>
+                                <Form.Control type="text" value={this.state.price} readOnly />
+                            </Form.Row>
+                        </Form.Group>
+
+                        <Form.Group>
                             <Form.Row>
                                 <Col>
-                                    <Button variant="primary" type="submit" >Submit</Button>
+                                    <Button variant="primary" type="submit" style={{marginLeft: 'auto', marginRight: 'auto'}}>Submit</Button>
                                 </Col>
                             </Form.Row>
-                        </Form>
-                    </Container>
-                </div>
-            </div>
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         );
     }
 }

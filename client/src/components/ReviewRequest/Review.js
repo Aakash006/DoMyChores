@@ -12,7 +12,7 @@ export default class Review extends Component {
         super(props);
         this.state = {
             ratings: "0",
-            picture: "",
+            picture: "Choose file input",
             pictureLinks: [],
             from: this.props.match.params.requester,
             to: this.props.match.params.provider
@@ -28,7 +28,7 @@ export default class Review extends Component {
     submitPicture = (event) => {
         event.preventDefault();
         this.setState({
-            picture: event.target.files[0].name,
+            picture: event.target.files[0].name
         });
 
         const reader = new FileReader();
@@ -117,7 +117,7 @@ export default class Review extends Component {
 
                             <Form.Row className="formRow">
                                 <Form.Label className="label">Picture</Form.Label>
-                                <Form.File size="sm" id="picture" onChange={this.submitPicture} />
+                                <Form.File id="custom-file-translate-scss" label={this.state.picture} onChange={this.submitPicture} custom lang="en"/>
                             </Form.Row>
                             {
                                 this.state.pictureLinks.length !== 0 &&
