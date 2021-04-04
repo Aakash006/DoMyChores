@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { NavBar } from '../Navbar/Navbar';
 import RequesterHistory from '../HistoryCards/RequesterHistory';
 import ProviderHistory from '../HistoryCards/ProviderHistory';
+import { ToastContainer } from 'react-toastify';
 
 export class History extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export class History extends Component {
         })
             .then(res => res.json())
             .then(data => {
-                this.setState({requests: data});
+                this.setState({ requests: data });
             });
     }
 
@@ -48,21 +49,22 @@ export class History extends Component {
                 } else {
                     console.log('Error: ' + data.message);
                 }
-            }).catch((error) =>{
+            }).catch((error) => {
                 console.log('error: ' + error);
             });
     }
 
     render() {
         return (
-            <div>
+            <>
                 <NavBar />
                 <div>
-                <Container className="cards">
-                    {localStorage.getItem('userType') === 'Customer' ? <RequesterHistory requests={this.state.requests} /> : <ProviderHistory requests={this.state.requests} />}
-                </Container>
-            </div>
-            </div>
+                    <Container className="cards">
+                        {localStorage.getItem('userType') === 'Customer' ? <RequesterHistory requests={this.state.requests} /> : <ProviderHistory requests={this.state.requests} />}
+                    </Container>
+                </div>
+                <ToastContainer />
+            </>
         );
     }
 }

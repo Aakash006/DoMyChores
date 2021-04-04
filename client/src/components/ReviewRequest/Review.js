@@ -73,6 +73,7 @@ export default class Review extends Component {
                     toast.error('Review Could Not Be Posted');
                     console.log('Error ' + data.msg);
                 }
+                this.handleClose();
             });
     }
 
