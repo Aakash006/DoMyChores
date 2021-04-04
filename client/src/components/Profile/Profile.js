@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { Jumbotron, Table } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
 
 import NavBar from "../Navbar/Navbar";
 
@@ -36,8 +35,6 @@ export class Profile extends React.Component {
                     this.setState({
                         reviewList: data.reviews
                     })
-                } else {
-                    toast.error('Error in getting reviews');
                 }
             }).catch((error) => {
                 console.log("error: " + error);
@@ -48,13 +45,12 @@ export class Profile extends React.Component {
         return (
             <div>
                 <NavBar />
-                <ToastContainer />
                 <Jumbotron>
                     <h1>{this.state.username}</h1>
                     <p>Email: {this.state.email}</p>
                 </Jumbotron>
-                {localStorage.getItem('userType') === 'Service Provider' ?
-                    <Table>
+                {localStorage.getItem('userType') === 'Service Provider' && this.state.reviewList.length > 0 ?
+                    (<Table>
                         <thead>
                             <tr>
                                 <td colSpan="4">
@@ -92,7 +88,7 @@ export class Profile extends React.Component {
                                 </td>
                             </tr>)
                         })}
-                    </Table> : ('')}
+                    </Table>) : (<h1>No reviews</h1>)}
             </div>
         );
     }

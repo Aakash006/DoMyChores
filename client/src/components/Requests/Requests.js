@@ -62,16 +62,25 @@ export class Requests extends Component {
                     {
                         this.state.requests.length === 0 ? <h3>No requests</h3> :
                             < Table className="requestsTable">
+                                <thead>
+                                    <tr>
+                                        <td><b>Requested By</b></td>
+                                        <td><b>Tasks</b></td>
+                                        <td><b>Address</b></td>
+                                        <td><b>Requested For</b></td>
+                                        <td><b>Status</b></td>
+                                        <td><b>Action</b></td>
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     {this.state.requests.map((request, id) =>
                                         <tr key={id}>
-                                            <td><b>Requested by: </b>{request.requesterUserName}</td>
+                                            <td>{request.requesterUserName}</td>
                                             <td>{request.requestedTasks.map((task, index) => {
                                                 return task + (index === request.requestedTasks.length - 1 ? ('') : (', '));
                                             })}</td>
-                                            {request.address ? <td><b>Address: </b>{request.address}</td> : ('')}
-                                            {request.requestedFor ? <td><b>Requested For : </b>{request.requestedFor}</td> : ('')}
-                                            {request.taskerUserName ? <td><b>Accepted by: </b>{request.taskerUserName}</td> : ('')}
+                                            <td>{request.address}</td>
+                                            <td>{request.requestedFor}</td>
                                             <td><Badge variant="success">{request.status}</Badge></td>
                                             {request.status === 'REQUESTED' ?
                                                 <td><Button onClick={(e) => this.acceptRequest(request.id, e)}>Accept</Button></td> : ''}
