@@ -30,8 +30,6 @@ export default class Review extends Component {
         this.setState({
             picture: event.target.files[0].name,
         });
-        const formData = new FormData();
-        formData.append('image', event.target.files[0])
 
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
@@ -50,7 +48,7 @@ export default class Review extends Component {
                     this.setState(state => ({
                         pictureLinks: [...state.pictureLinks, dat.url]
                     }))
-                })
+                });
         }
     }
 
