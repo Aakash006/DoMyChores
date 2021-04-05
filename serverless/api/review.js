@@ -22,7 +22,8 @@ module.exports.addReview = async(event, context, callback) => {
             toUsername: requestBody.toUsername,
             datePosted: new Date().toISOString(),
             pictureLinks: requestBody.pictureLinks,
-            ratings: requestBody.ratings
+            ratings: requestBody.ratings,
+            comment: requestBody.comment
         }
     };
 
@@ -40,7 +41,6 @@ module.exports.addReview = async(event, context, callback) => {
 };
 
 module.exports.getReviewsUsingUsername = async(event, context, callback) => {
-    const requestBody = JSON.parse(event.body);
     const response = {
         headers: {
             "Access-Control-Allow-Headers": "Content-Type",
