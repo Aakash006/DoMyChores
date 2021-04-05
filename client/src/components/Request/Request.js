@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Request.css';
 import services from '../../assets/service.json';
-
 export class Request extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +12,7 @@ export class Request extends Component {
         }
         const taskName = this.props.task;
         let tempTask = services.find(wholeTask => wholeTask.task === taskName);
-        let price = tempTask.price;
+        const price = tempTask.price;
         tempTask = tempTask.subTasks.length > 0 ? tempTask.subTasks : [tempTask.task];
         this.state = {
             address: "",
@@ -23,6 +22,8 @@ export class Request extends Component {
             price: price,
             show: true
         }
+
+        this.dPrice = price
     }
 
     submitRequest = (event) => {
@@ -54,10 +55,24 @@ export class Request extends Component {
             });
     }
 
+    calcPriceToDate = (dateVal) => {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const dateDiff = Math.round( Math.abs((new Date(dateVal) - new Date())/oneDay) );
+        let price = this.dPrice;
+
+        return (dateDiff <= 7) ? price += price * ( (8 - dateDiff) * 0.1 ) : price;
+    };
+
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
         });
+
+        if(event.target.name === 'requestDate'){
+            this.setState({
+                price: this.calcPriceToDate(event.target.value),
+            });
+        }
     };
 
     handleClose = () => {
