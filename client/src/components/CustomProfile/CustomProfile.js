@@ -4,27 +4,35 @@ import { Jumbotron, Card, Figure, Container } from "react-bootstrap";
 
 import NavBar from "../Navbar/Navbar";
 
-export class Profile extends React.Component {
+export class CustomProfile extends React.Component {
     constructor(props) {
         super(props);
         if (localStorage.getItem("id") === null) {
             window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
         }
-
         this.state = {
-            username: localStorage.getItem('username'),
-            email: localStorage.getItem('email'),
-            userType: localStorage.getItem('userType'),
-            id: localStorage.getItem('id'),
+            username: this.props.match.params.username,
+            email: '',
+            userType: '',
+            id: '',
             reviewList: []
         };
 
     }
 
     componentDidMount() {
+        this.fetchAccountDetails();
         if (this.state.userType === 'Service Provider') {
             this.fetchReviews();
         }
+    }
+
+    fetchAccountDetails() {
+        fetch(`/api/profile/${this.state.username}`)
+            .then(res => res.json())
+            .then(dat => {
+                this.setState({ email: dat.email, userType: dat.userType, id: dat.id })
+            })
     }
 
     fetchReviews() {
@@ -90,4 +98,4 @@ export class Profile extends React.Component {
     }
 }
 
-export default withRouter(Profile);
+export default withRouter(CustomProfile);
