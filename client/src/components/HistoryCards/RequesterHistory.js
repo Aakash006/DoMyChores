@@ -42,7 +42,7 @@ export default class RequesterHistory extends Component {
                         <div>
                             <div style={{ padding: '20px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Requested</h1>
-                                <Container><Row>
+                                <Container className="cards"><Row>
                                     {this.props.requests.map((request, id) =>
 
                                         request.status === 'REQUESTED' && <Col key={id} md={4}>
@@ -70,7 +70,7 @@ export default class RequesterHistory extends Component {
                             </div>
                             <div style={{ padding: '20px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Accepted</h1>
-                                <Container><Row>
+                                <Container className="cards"><Row>
                                     {this.props.requests.map((request, id) =>
                                         request.status === 'ACCEPTED' && <Col key={id} md={4}>
                                             <Card key={id} className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
@@ -97,7 +97,7 @@ export default class RequesterHistory extends Component {
                             </div>
                             <div style={{ padding: '20px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Done</h1>
-                                <Container>
+                                <Container className="cards">
                                     <Row>
                                         {this.props.requests.map((request, id) =>
                                             request.status === 'DONE' && <Col key={id} md={4}>
@@ -114,7 +114,7 @@ export default class RequesterHistory extends Component {
                                                         {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
                                                         <Row>
                                                             {
-                                                                request.status === 'DONE' ? <Button className="reviewBtn" onClick={(e) => this.review(request.requesterUserName, request.taskerUserName, e)}>Review</Button> : ''
+                                                                request.status === 'DONE' ? <Button className="reviewBtn" variant="success" onClick={(e) => this.review(request.requesterUserName, request.taskerUserName, e)}>Review</Button> : ''
                                                             }
                                                         </Row>
                                                     </Card.Body>

@@ -41,7 +41,7 @@ export class Register extends React.Component {
         return (
             <div className="app">
                 <Container className="register">
-                    <h2>Register</h2>
+                    <h2 style={{color: 'black'}}>Register</h2>
                     <Form onSubmit={this.register}>
                         <Form.Group controlid="formBasicEmail">
                             <Form.Row>
