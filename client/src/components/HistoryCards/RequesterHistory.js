@@ -55,7 +55,7 @@ export default class RequesterHistory extends Component {
                                                     </Card.Text>
                                                     <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
                                                     <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
-                                                    {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b>{request.taskerUserName}</Card.Text> : ('')}
+                                                    {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b><Button variant="link"  href={`/profiles/${request.taskerUserName}`} style={{ verticalAlign: 'baseline', padding: '3px' }} >{request.taskerUserName}</Button></Card.Text> : ('')}
                                                     {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
                                                     <Row>
                                                         {
@@ -82,7 +82,7 @@ export default class RequesterHistory extends Component {
                                                     </Card.Text>
                                                     <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
                                                     <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
-                                                    {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b>{request.taskerUserName}</Card.Text> : ('')}
+                                                    {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b><Button variant="link"  href={`/profiles/${request.taskerUserName}`} style={{ verticalAlign: 'baseline', padding: '3px' }} >{request.taskerUserName}</Button></Card.Text> : ('')}
                                                     {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
                                                     <Row>
                                                         {
@@ -110,7 +110,7 @@ export default class RequesterHistory extends Component {
                                                         </Card.Text>
                                                         <Card.Text className="text"><b>Address: </b>{request.address}</Card.Text>
                                                         <Card.Text className="text"><Badge variant={this.getStatusStyle(request.status)}>{request.status}</Badge></Card.Text>
-                                                        {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b>{request.taskerUserName}</Card.Text> : ('')}
+                                                        {request.taskerUserName ? <Card.Text className="text"><b>Accepted By: </b><Button variant="link"  href={`/profiles/${request.taskerUserName}`} style={{ verticalAlign: 'baseline', padding: '3px' }} >{request.taskerUserName}</Button></Card.Text> : ('')}
                                                         {request.completedTimeStamp ? <Card.Text className="text"><b>Completed At: </b>{request.completedTimeStamp}</Card.Text> : ('')}
                                                         <Row>
                                                             {
