@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Jumbotron, Card, Figure } from "react-bootstrap";
+import { Jumbotron, Card, Figure, Container } from "react-bootstrap";
 
 import NavBar from "../Navbar/Navbar";
 
@@ -45,41 +45,45 @@ export class Profile extends React.Component {
         return (
             <>
                 <NavBar />
-                <Jumbotron style={{textAlign: 'center'}}>
+                <Jumbotron style={{ textAlign: 'center', background: '#2b2c2b' }}>
                     <h1>{this.state.username}</h1>
-                    <p>Email: {this.state.email}</p>
+                    <p style={{ color: 'white' }}>Email: {this.state.email}</p>
+                    <p style={{ color: 'white' }}>User Type: {this.state.userType}</p>
+
                 </Jumbotron>
                 {
                     localStorage.getItem('userType') === 'Service Provider' ? (this.state.reviewList.length > 0 ?
-                        <div style={{padding: '10px', textAlign: 'initial'}}>
-                            <h1 style={{borderBottom: '1px solid rgb(199, 205, 209)'}}>Reviews</h1>
-                            {
-                                this.state.reviewList.map((rev, id) => {
-                                    return <Card key={id} style={{marginTop: '20px'}}>
-                                        <Card.Body>
-                                            <Card.Title>Review</Card.Title>
-                                            <Card.Text>From: {rev.fromUsername}</Card.Text>
-                                            <Card.Text>Ratings: {rev.ratings}</Card.Text>
-                                            <Card.Text>Date Posted: {rev.datePosted}</Card.Text>
-                                            {
-                                                rev.pictureLinks.map((pic, pid) => {
-                                                    return <Figure key={pid}>
-                                                        <Figure.Image
-                                                            width={171}
-                                                            height={180}
-                                                            alt="171x180"
-                                                            src={pic}
-                                                        />
-                                                    </Figure>
-                                                })
-                                            }
-                                        </Card.Body>
-                                    </Card>
-                                })
-                            }
-                        </div>
+                        <Container className="cards">
+                            <div style={{ padding: '10px', textAlign: 'initial' }}>
+                                <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Reviews</h1>
+                                {
+                                    this.state.reviewList.map((rev, id) => {
+                                        return <Card key={id} style={{ marginTop: '20px' }} bg="dark" text="white">
+                                            <Card.Body>
+                                                <Card.Title style={{ borderBottom: '0.2px solid gray' }}>Review {id + 1}</Card.Title>
+                                                <Card.Text>From: {rev.fromUsername}</Card.Text>
+                                                <Card.Text>Ratings: {rev.ratings}</Card.Text>
+                                                <Card.Text>Date Posted: {rev.datePosted}</Card.Text>
+                                                {
+                                                    rev.pictureLinks.map((pic, pid) => {
+                                                        return <Figure key={pid}>
+                                                            <Figure.Image
+                                                                width={171}
+                                                                height={180}
+                                                                alt="171x180"
+                                                                src={pic}
+                                                            />
+                                                        </Figure>
+                                                    })
+                                                }
+                                            </Card.Body>
+                                        </Card>
+                                    })
+                                }
+                            </div>
+                        </Container>
                         :
-                    <h1>No reviews</h1>) : ('')}
+                        <h1>No reviews</h1>) : ('')}
             </>
         );
     }

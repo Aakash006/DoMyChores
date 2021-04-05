@@ -44,7 +44,7 @@ export default class ProviderHistory extends Component {
                         <div>
                             <div style={{ padding: '20px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Accepted</h1>
-                                <Container><Row>
+                                <Container className="cards"><Row>
                                     {this.props.requests.map((request, id) =>
 
                                         request.status === 'ACCEPTED' && <Col key={id} md={4}>
@@ -71,7 +71,7 @@ export default class ProviderHistory extends Component {
                             </div>
                             <div style={{ padding: '20px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Done</h1>
-                                <Container>
+                                <Container className="cards">
                                     <Row>
                                         {this.props.requests.map((request, id) =>
 

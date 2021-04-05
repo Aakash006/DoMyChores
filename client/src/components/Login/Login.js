@@ -47,7 +47,7 @@ export class Login extends React.Component {
         return (
             <div className="app">
                 <Container className="login">
-                    <h2>Login</h2>
+                    <h2 style={{color: 'black'}}>Login</h2>
                     <Form onSubmit={this.login}>
                         <Form.Group controlid="formBasicEmail">
                             <Form.Row>

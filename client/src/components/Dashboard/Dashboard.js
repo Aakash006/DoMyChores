@@ -37,83 +37,87 @@ export class Dashboard extends Component {
         return (
             <>
                 <NavBar />
-                {localStorage.getItem('userType') === 'Customer' ?
-                    <div style={{ padding: '20px', textAlign: 'initial' }}>
-                        <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Individual Services</h1>
-                        <Container className="cards">
-                            {
-                                services.length > 0 &&
-                                <Row>
-                                    {
-                                        services.map((service, id) =>
-                                            !service.task.includes('Package') && <Col key={id} md={4}>
-                                                <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
-                                                    <Card.Body>
-                                                        <Card.Title>{service.task}</Card.Title>
-                                                        <Card.Text>{service.description}</Card.Text>
-                                                        <Card.Text>Budget: ${service.price}</Card.Text>
-                                                        <Card.Text>{
-                                                            service.subTasks.length > 0 &&
-                                                            service.subTasks.map((task, index) =>
-                                                                <span key={index}>{task}{service.subTasks.length - 1 === index ? ('') : (', ')}</span>
-                                                            )
-                                                        }
-                                                        </Card.Text>
-                                                        <Row>
-                                                            {
-                                                                this.state.userType === 'Customer' &&
-                                                                <Button className="createBtn" onClick={(e) => this.handleClick(e, service.task)}>Create a Task</Button>
-                                                            }
-                                                        </Row>
-                                                    </Card.Body>
-                                                </Card>
-                                            </Col>
-                                        )
-                                    }
-                                </Row>
-                            }
-                        </Container>
+                <Container className="cards">
 
-                        <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Packages</h1>
-                        <Container className="cards">
-                            {
-                                services.length > 0 &&
-                                <Row>
-                                    {
-                                        services.map((service, id) =>
-                                            service.task.includes('Package') && <Col key={id} md={4}>
-                                                <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
-                                                    <Card.Body>
-                                                        <Card.Title>{service.task}</Card.Title>
-                                                        <Card.Text>{service.description}</Card.Text>
-                                                        <Card.Text>Budget: ${service.price}</Card.Text>
-                                                        <Card.Text>{
-                                                            service.subTasks.length > 0 &&
-                                                            service.subTasks.map((task, index) =>
-                                                                <span key={index}>{task}{service.subTasks.length - 1 === index ? ('') : (', ')}</span>
-                                                            )
-                                                        }
-                                                        </Card.Text>
-                                                        <Row>
-                                                            {
-                                                                this.state.userType === 'Customer' &&
-                                                                <Button className="createBtn" onClick={(e) => this.handleClick(e, service.task)}>Create a Task</Button>
+                    {localStorage.getItem('userType') === 'Customer' ?
+                        <div style={{ padding: '20px', textAlign: 'initial' }}>
+                            <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Individual Services</h1>
+                            <Container className="cards">
+                                {
+                                    services.length > 0 &&
+                                    <Row>
+                                        {
+                                            services.map((service, id) =>
+                                                !service.task.includes('Package') && <Col key={id} md={4}>
+                                                    <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
+                                                        <Card.Body>
+                                                            <Card.Title>{service.task}</Card.Title>
+                                                            <Card.Text>{service.description}</Card.Text>
+                                                            <Card.Text>Budget: ${service.price}</Card.Text>
+                                                            <Card.Text>{
+                                                                service.subTasks.length > 0 &&
+                                                                service.subTasks.map((task, index) =>
+                                                                    <span key={index}>{task}{service.subTasks.length - 1 === index ? ('') : (', ')}</span>
+                                                                )
                                                             }
-                                                        </Row>
-                                                    </Card.Body>
-                                                </Card>
-                                            </Col>
-                                        )
-                                    }
-                                </Row>
-                            }
-                        </Container>
+                                                            </Card.Text>
+                                                            <Row>
+                                                                {
+                                                                    this.state.userType === 'Customer' &&
+                                                                    <Button className="createBtn" onClick={(e) => this.handleClick(e, service.task)}>Create a Task</Button>
+                                                                }
+                                                            </Row>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Col>
+                                            )
+                                        }
+                                    </Row>
+                                }
+                            </Container>
 
-                    </div>
-                    : (<Requests />)}
-                {
-                    this.state.openModal && <Request task={this.state.selectedTask} modalCloser={this.closeModal} />
-                }
+                            <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Packages</h1>
+                            <Container className="cards">
+                                {
+                                    services.length > 0 &&
+                                    <Row>
+                                        {
+                                            services.map((service, id) =>
+                                                service.task.includes('Package') && <Col key={id} md={4}>
+                                                    <Card className="serviceCard" style={{ flex: 1 }} bg="dark" text="white">
+                                                        <Card.Body>
+                                                            <Card.Title>{service.task}</Card.Title>
+                                                            <Card.Text>{service.description}</Card.Text>
+                                                            <Card.Text>Budget: ${service.price}</Card.Text>
+                                                            <Card.Text>{
+                                                                service.subTasks.length > 0 &&
+                                                                service.subTasks.map((task, index) =>
+                                                                    <span key={index}>{task}{service.subTasks.length - 1 === index ? ('') : (', ')}</span>
+                                                                )
+                                                            }
+                                                            </Card.Text>
+                                                            <Row>
+                                                                {
+                                                                    this.state.userType === 'Customer' &&
+                                                                    <Button className="createBtn" onClick={(e) => this.handleClick(e, service.task)}>Create a Task</Button>
+                                                                }
+                                                            </Row>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Col>
+                                            )
+                                        }
+                                    </Row>
+                                }
+                            </Container>
+
+                        </div>
+                        : (<Requests />)}
+                    {
+                        this.state.openModal && <Request task={this.state.selectedTask} modalCloser={this.closeModal} />
+                    }
+                </Container>
+
                 <ToastContainer />
             </>
         );
