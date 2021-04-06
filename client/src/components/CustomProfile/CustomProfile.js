@@ -21,14 +21,17 @@ export class CustomProfile extends React.Component {
     }
 
     componentDidMount() {
-        this.fetchAccountDetails();
-        if (this.state.userType === 'Service Provider') {
-            this.fetchReviews();
-        }
+        this.fetchAccountDetails()
+        .then(e => {
+            if (this.state.userType === 'Service Provider') {
+                console.log(this.state.userType)
+                this.fetchReviews();
+            }
+        })
     }
 
     fetchAccountDetails() {
-        fetch(`/api/profile/${this.state.username}`)
+        return fetch(`/api/profile/${this.state.username}`)
             .then(res => res.json())
             .then(dat => {
                 this.setState({ email: dat.email, userType: dat.userType, id: dat.id })
@@ -36,13 +39,14 @@ export class CustomProfile extends React.Component {
     }
 
     fetchReviews() {
-        fetch(`/api/review/${this.state.username}`, { method: 'GET' })
+        fetch(`/api/review/${this.props.match.params.username}`, { method: 'GET' })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
                     this.setState({
                         reviewList: data.reviews
                     })
+                    console.log(data)
                 }
             }).catch((error) => {
                 console.log("error: " + error);
@@ -60,7 +64,7 @@ export class CustomProfile extends React.Component {
 
                 </Jumbotron>
                 {
-                    localStorage.getItem('userType') === 'Service Provider' ? (this.state.reviewList.length > 0 ?
+                    this.state.reviewList.length > 0 ?
                         <Container className="cards">
                             <div style={{ padding: '10px', textAlign: 'initial' }}>
                                 <h1 style={{ borderBottom: '1px solid rgb(199, 205, 209)' }}>Reviews</h1>
@@ -92,7 +96,7 @@ export class CustomProfile extends React.Component {
                             </div>
                         </Container>
                         :
-                        <h1>No reviews</h1>) : ('')}
+                        <h1>No reviews</h1>}
             </>
         );
     }

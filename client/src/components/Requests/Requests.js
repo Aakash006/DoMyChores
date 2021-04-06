@@ -76,7 +76,7 @@ export class Requests extends Component {
                                                             }
                                                         </Card.Text>
                                                         <Card.Text><b>Address:</b> {request.address}</Card.Text>
-                                                        <Card.Text><b>Completion Date:</b> {request.requestedFor}</Card.Text>
+                                                        <Card.Text><b>Required Completion Date:</b> {request.requestedFor}</Card.Text>
                                                         <Card.Text className="text"><Badge variant="info">{request.status}</Badge></Card.Text>
                                                         <Row>
                                                             {
