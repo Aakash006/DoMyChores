@@ -96,7 +96,7 @@ export class Request extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Row>
-                                <Form.Label>Completion Date</Form.Label>
+                                <Form.Label>Required Completion Date:</Form.Label>
                                 <Form.Control type="date" placeholder="Date" name="requestDate" value={this.state.requestDate} onChange={this.handleChange} />
                             </Form.Row>
                         </Form.Group>
