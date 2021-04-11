@@ -4,7 +4,9 @@ import { Jumbotron, Card, Figure, Container } from "react-bootstrap";
 
 import NavBar from "../Navbar/Navbar";
 
+/* Class to render custom profiles */
 export class CustomProfile extends React.Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         if (localStorage.getItem("id") === null) {
@@ -20,6 +22,7 @@ export class CustomProfile extends React.Component {
 
     }
 
+    /* This will run methods immediately after a component is mounted */
     componentDidMount() {
         this.fetchAccountDetails()
         .then(e => {
@@ -30,6 +33,7 @@ export class CustomProfile extends React.Component {
         })
     }
 
+    /* This method will fetch account details */
     fetchAccountDetails() {
         return fetch(`/api/profile/${this.state.username}`)
             .then(res => res.json())
@@ -38,6 +42,7 @@ export class CustomProfile extends React.Component {
             })
     }
 
+    /* This method will fetch all the reviews associated to the suer */
     fetchReviews() {
         fetch(`/api/review/${this.props.match.params.username}`, { method: 'GET' })
             .then(res => res.json())
@@ -53,6 +58,7 @@ export class CustomProfile extends React.Component {
             });
     }
 
+    /* Render the component */
     render() {
         return (
             <>

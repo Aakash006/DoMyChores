@@ -6,7 +6,9 @@ import RequesterHistory from '../HistoryCards/RequesterHistory';
 import ProviderHistory from '../HistoryCards/ProviderHistory';
 import { ToastContainer } from 'react-toastify';
 
+/* Class to render custom profiles */
 export class History extends Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         if (localStorage.getItem("id") === null) {
             window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
@@ -17,10 +19,12 @@ export class History extends Component {
         };
     }
 
+    /* This will run methods immediately after a component is mounted */
     componentDidMount() {
         this.fetchRecents()
     }
 
+    /* Fetch recent request from the server and update state*/
     fetchRecents() {
         const userType = localStorage.getItem('userType') === 'Customer' ? 'requesterUserName' : 'taskerUserName';
         fetch(`/api/service-requests/get-user?${userType}=${localStorage.getItem('username')}`, {
@@ -32,6 +36,7 @@ export class History extends Component {
             });
     }
 
+    /* Complete a request and update action on the server */
     completeRequest = (id, e) => {
         fetch(`/api/service-requests/tasker-complete`, {
             method: 'POST',
@@ -54,6 +59,7 @@ export class History extends Component {
             });
     }
 
+    /* Render the component */
     render() {
         return (
             <>

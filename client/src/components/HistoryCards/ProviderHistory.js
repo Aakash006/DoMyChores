@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Button, Badge, Row, Col, Card, Container } from 'react-bootstrap';
 import './HistoryCards.css';
 
+/* Class to render provider history */
 export default class ProviderHistory extends Component {
 
+    /* return appropriate response to the status change. */
     getStatusStyle(status) {
         if (status === 'REQUESTED') {
             return 'warning';
@@ -14,6 +16,7 @@ export default class ProviderHistory extends Component {
         }
     }
 
+    /* Complete a request and update it on the server  */
     completeRequest = (id, e) => {
         fetch(`/api/service-requests/tasker-complete`, {
             method: 'POST',
@@ -36,6 +39,7 @@ export default class ProviderHistory extends Component {
             });
     }
 
+    /* Render the component */
     render() {
         return (
             <div>

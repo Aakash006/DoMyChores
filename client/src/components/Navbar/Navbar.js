@@ -3,7 +3,9 @@ import React from 'react';
 import { Nav, Navbar, NavDropdown, Modal, Button } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
+/* Class to render navbar */
 export class NavBar extends React.Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         this.state = {
@@ -11,16 +13,20 @@ export class NavBar extends React.Component {
 
         }
     }
+
+    /* update state based on click */
     handleClick = () => {
         this.setState({ show: !this.state.show })
     }
 
+    /* handle nav close */
     handleClose = () => {
         this.setState({ show: !this.state.show });
         localStorage.clear();
         window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
     }
 
+    /* Render the component */
     render() {
         return (
             <>

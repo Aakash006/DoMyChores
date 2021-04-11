@@ -11,6 +11,7 @@ import { Requests } from './components/Requests/Requests';
 import { CustomProfile } from './components/CustomProfile/CustomProfile';
 import Review from './components/ReviewRequest/Review';
 
+/* Serve the react app with custom components to render using different routes */
 function App() {
     return (
         <div className='App'>

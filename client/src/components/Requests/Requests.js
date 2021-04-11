@@ -3,7 +3,9 @@ import { Button, Container, Badge, Row, Card, Col } from 'react-bootstrap';
 import './Requests.css';
 import { ToastContainer, toast } from 'react-toastify';
 
+/* Class to render requests page */
 export class Requests extends Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         if (localStorage.getItem("id") === null) {
             window.location.replace(`${window.location.protocol + '//' + window.location.host}/login`);
@@ -15,10 +17,12 @@ export class Requests extends Component {
 
     }
 
+    /* This will run methods immediately after a component is mounted */
     componentDidMount() {
         this.fetchRequests();
     }
 
+    /* Fetch service request from the server */
     fetchRequests() {
         fetch(`/api/service-requests/`, { method: 'GET' })
             .then(res => res.json())
@@ -30,6 +34,7 @@ export class Requests extends Component {
             });
     }
 
+    /* accept a service request and update to the server */
     acceptRequest = (id, e) => {
         fetch(`/api/service-requests/tasker-accept`, {
             method: 'POST',
@@ -54,6 +59,7 @@ export class Requests extends Component {
             });
     }
 
+    /* Render the component */
     render() {
         return (
             <Container className="cards">

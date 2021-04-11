@@ -4,7 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Request.css';
 import services from '../../assets/service.json';
+
+/* Class to render request page */
 export class Request extends Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         if (localStorage.getItem("id") === null) {
@@ -26,6 +29,7 @@ export class Request extends Component {
         this.dPrice = price
     }
 
+    /* submit a request to the server */
     submitRequest = (event) => {
         event.preventDefault();
         fetch(`/api/service-requests/create`, {
@@ -55,6 +59,7 @@ export class Request extends Component {
             });
     }
 
+    /* Return the price value based on date */
     calcPriceToDate = (dateVal) => {
         const oneDay = 24 * 60 * 60 * 1000;
         const dateDiff = Math.round( Math.abs((new Date(dateVal) - new Date())/oneDay) );
@@ -63,6 +68,7 @@ export class Request extends Component {
         return (dateDiff <= 7) ? price += price * ( (8 - dateDiff) * 0.1 ) : price;
     };
 
+    /* Handle input change */
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
@@ -75,11 +81,13 @@ export class Request extends Component {
         }
     };
 
+    /* Handle modal close change */
     handleClose = () => {
         this.setState({ show: false })
         this.props.modalCloser()
     }
 
+    /* Render the component */
     render() {
         return (
             <Modal show={this.state.show} onHide={this.handleClose} animation={false}>

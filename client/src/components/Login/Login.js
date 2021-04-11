@@ -3,7 +3,9 @@ import React from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 
+/* Class to render login page */
 export class Login extends React.Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
 
@@ -13,12 +15,14 @@ export class Login extends React.Component {
         };
     }
 
+    /* Handle change method and update state based on event */
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value,
         });
     };
 
+    /* fetch user information once the user clicks on the login button */
     login = (event) => {
         event.preventDefault();
         fetch(`/api/login`, {
@@ -43,6 +47,7 @@ export class Login extends React.Component {
             });
     };
 
+    /* Render the component */
     render() {
         return (
             <div className="app">

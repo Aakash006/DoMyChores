@@ -4,7 +4,9 @@ import { Jumbotron, Card, Figure, Container } from "react-bootstrap";
 
 import NavBar from "../Navbar/Navbar";
 
+/* Class to render User profile page */
 export class Profile extends React.Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         if (localStorage.getItem("id") === null) {
@@ -21,12 +23,14 @@ export class Profile extends React.Component {
 
     }
 
+    /* This will run methods immediately after a component is mounted */
     componentDidMount() {
         if (this.state.userType === 'Service Provider') {
             this.fetchReviews();
         }
     }
 
+    /* Fetch user reviews and update review list state */
     fetchReviews() {
         fetch(`/api/review/${this.state.username}`, { method: 'GET' })
             .then(res => res.json())
@@ -41,6 +45,7 @@ export class Profile extends React.Component {
             });
     }
 
+    /* Render the component */
     render() {
         return (
             <>

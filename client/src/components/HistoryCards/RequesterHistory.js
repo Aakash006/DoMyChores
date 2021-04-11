@@ -3,8 +3,9 @@ import { Button, Badge, Row, Col, Card, Container } from 'react-bootstrap';
 import './HistoryCards.css';
 import Review from '../ReviewRequest/Review';
 
+/* Class to render requester history */
 export default class RequesterHistory extends Component {
-
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         this.state = {
@@ -14,15 +15,18 @@ export default class RequesterHistory extends Component {
         }
     }
 
+    /* set reviews */
     review = (requester, provider, event) => {
         // window.location.replace(`${window.location.protocol + '//' + window.location.host}/review/${requester}/${provider}`);
         this.setState({ openModal: true, requester: requester, provider: provider })
     }
 
+    /* This method will change the state of open Modal */
     closeModal = () => {
         this.setState({ openModal: false })
     }
 
+    /* return appropriate response to the status change. */
     getStatusStyle(status) {
         if (status === 'REQUESTED') {
             return 'warning';
@@ -33,6 +37,7 @@ export default class RequesterHistory extends Component {
         }
     }
 
+    /* Render the component */
     render() {
         return (
             <>

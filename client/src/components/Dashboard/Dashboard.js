@@ -9,8 +9,9 @@ import services from '../../assets/service.json';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-
+/* Class to render custom profiles */
 export class Dashboard extends Component {
+    /* class constructor to initialize the props and states */
     constructor(props) {
         super(props);
         if (localStorage.getItem("id") === null) {
@@ -23,16 +24,19 @@ export class Dashboard extends Component {
         };
     }
 
+    /* Handle click method for the modal */
     handleClick = (e, task) => {
         // Make Task
         // window.location.replace(`${window.location.protocol + '//' + window.location.host}/request/${task}`);
         this.setState({ openModal: true, selectedTask: task })
     }
 
+    /* This method will change the state of open Modal */
     closeModal = () => {
         this.setState({ openModal: false })
     }
 
+    /* Render the component */
     render() {
         return (
             <>
